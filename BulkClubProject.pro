@@ -11,6 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     adminwindow.cpp \
+    dbmanager.cpp \
     loginwindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     adminwindow.h \
+    dbmanager.h \
     loginwindow.h \
     mainwindow.h \
     managerwindow.h
