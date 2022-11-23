@@ -14,6 +14,13 @@ class ManagerWindow : public QWidget
 public:
     explicit ManagerWindow(QWidget *parent = nullptr);
     ~ManagerWindow();
+    //void displaySalesReport(dayGiven);
+    //void displayTotalPurchases();
+    //void displayQuantitiy();
+    //void displayRebate();
+    //void displayMembership(month);
+    //void displayItemQuant(itemName);
+    //void displayMemberPurchases(memNum, memName);
 
 private slots:
     void on_pushButton_7_clicked();
