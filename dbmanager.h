@@ -9,9 +9,15 @@ class DbManager
 public:
     DbManager(const QString& path);
     // LoginWindow functions
-    bool passwordCheck();
+    bool idMatch(int id);
+    bool passwordCheck(int id, QString* password);
+    void privilegeCheck(int id);
 
     // Employee/MainWindow Functions
+    void displayInventoryItems();
+    void addTransaction(QDate date, int memNum, int item[], int quantity[]);
+    void addToMemberTotal(int memNum, double price);
+    void addToExecCashback(int memNum, double cashback);
 
     // AdminWindow functions
 
