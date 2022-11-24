@@ -20,7 +20,11 @@ public:
     void addToExecCashback(int memNum, double cashback);
 
     // AdminWindow functions
-
+    void deleteItem(QString itemname);
+    void editItemPrice(QString itemname, int price);
+    void addItem(QString itemname, int price);
+    void deleteMember(QString memberName, QString memberNum);
+    void addMember(QString memberName, QString memberNum, QString type, QString expirationDate, QString totalSpent, QString rebateAmount);
     // ManagerWindow functions
     void displaySalesReport(int dayGiven);
     void displayTotalPurchases();
