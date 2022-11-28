@@ -8,13 +8,14 @@ class DbManager
 {
 public:
     DbManager(const QString& path);
+
     // LoginWindow functions
     bool idMatch(int id);
     bool passwordCheck(int id, QString* password);
     void privilegeCheck(int id);
 
     // Employee/MainWindow Functions
-    void displayInventoryItems();
+    QSqlQuery pullInventoryItems();
     void addTransaction(QDate date, int memNum, int item[], int quantity[]);
     void addToMemberTotal(int memNum, double price);
     void addToExecCashback(int memNum, double cashback);
@@ -24,7 +25,9 @@ public:
     void editItemPrice(QString itemname, int price);
     void addItem(QString itemname, int price);
     void deleteMember(QString memberName, QString memberNum);
-    void addMember(QString memberName, QString memberNum, QString type, QString expirationDate, QString totalSpent, QString rebateAmount);
+    void addMember(QString memberName, QString memberNum, QString type,
+                   QString expirationDate, QString totalSpent, QString rebateAmount);
+
     // ManagerWindow functions
     void displaySalesReport(int dayGiven);
     void displayTotalPurchases();

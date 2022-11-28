@@ -22,7 +22,7 @@ void MainWindow::setTabSettings()
 void MainWindow::on_pushButton_clicked()
 {
     LoginWindow *login = new LoginWindow;
-    login->exec();
+    login->show();
     this->close();
 }
 
@@ -31,6 +31,6 @@ void MainWindow::on_pushButton_2_clicked()
 {
     LoginWindow *login = new LoginWindow;
     this->close();
-    login->exec();
+    login->show();
 }
 
