@@ -25,14 +25,16 @@ public:
     void addItem(QString itemname, int price);
     void deleteMember(QString memberName, QString memberNum);
     void addMember(QString memberName, QString memberNum, QString type, QString expirationDate, QString totalSpent, QString rebateAmount);
+
     // ManagerWindow functions
-    void displaySalesReport(int dayGiven);
-    void displayTotalPurchases();
-    void displayQuantity();
-    void displayRebate();
-    void displayMembership(int month);
-    void displayItemQuant(QString itemName);
-    void displayMemberPurchases(int memNum, QString memName);
+    void generateSalesReport(QString dayGiven);
+    void queryTotalPurchases();
+    void queryQuantity();
+    void calcRebate();
+    void queryMembershipExp(int month);
+    void queryItemQuant(QString itemName);
+    void queryMemberPurchases(int memNum, QString memName);
+
 private:
     QSqlDatabase main_db;
 };
