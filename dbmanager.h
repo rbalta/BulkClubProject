@@ -15,7 +15,8 @@ public:
     void privilegeCheck(int id);
 
     // Employee/MainWindow Functions
-    QSqlQuery pullInventoryItems();
+    void pullInventoryItems();
+    bool memberExists(int memNum, bool& isExec);
     void addTransaction(QDate date, int memNum, int item[], int quantity[]);
     void addToMemberTotal(int memNum, double price);
     void addToExecCashback(int memNum, double cashback);

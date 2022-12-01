@@ -19,6 +19,7 @@ public:
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
+    bool on_pushButton_3_clicked(); // returns bool- true means member is exec
 
 private:
     Ui::MainWindow *ui;

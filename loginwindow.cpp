@@ -9,7 +9,10 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-    this->setFixedSize(650,400);
+    this->setFixedSize(650,350);
+    ui->lineEdit->setPlaceholderText("User ID");
+    ui->lineEdit_2->setPlaceholderText("Password");
+    ui->lineEdit_2->setEchoMode(QLineEdit::Password);
 }
 
 LoginWindow::~LoginWindow()
@@ -19,19 +22,19 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_pushButton_clicked() // Login button
 {
-    if (ui->textEdit->toPlainText() == "employee")
+    if (ui->lineEdit->text() == "employee")
     {
         MainWindow *main = new MainWindow;
         this->hide();
         main->showMaximized();
     }
-    else if (ui->textEdit->toPlainText() == "manager")
+    else if (ui->lineEdit->text() == "manager")
     {
         ManagerWindow *m = new ManagerWindow;
         this->hide();
         m->showMaximized();
     }
-    else if (ui->textEdit->toPlainText() == "admin")
+    else if (ui->lineEdit->text() == "admin")
     {
         AdminWindow *a = new AdminWindow;
         this->hide();
@@ -59,7 +62,7 @@ void LoginWindow::on_pushButton_2_clicked() // Admin button
 void LoginWindow::keyPressEvent(QKeyEvent* login) // use Enter key to also login
 {
     if(login->key() == Qt::Key_Return)
-        on_pushButton_clicked(); // doesn't work yet
+        on_pushButton_clicked();
 }
 
 void LoginWindow::closeEvent(QCloseEvent *event) // confirms exit from login screen

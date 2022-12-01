@@ -51,7 +51,7 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>110</y>
+        <y>130</y>
         <width>481</width>
         <height>581</height>
        </rect>
@@ -90,22 +90,53 @@
        </item>
       </layout>
      </widget>
-     <widget class="QTextEdit" name="textEdit">
+     <widget class="QWidget" name="horizontalLayoutWidget_3">
       <property name="geometry">
        <rect>
         <x>30</x>
         <y>30</y>
         <width>481</width>
-        <height>51</height>
+        <height>41</height>
        </rect>
       </property>
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QTextBrowser" name="textBrowser">
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Enter membership number:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>90</y>
+        <width>161</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Member Lookup</string>
       </property>
      </widget>
     </widget>
@@ -115,7 +146,7 @@ hr { height: 1px; border-width: 0; }
      <rect>
       <x>600</x>
       <y>50</y>
-      <width>621</width>
+      <width>641</width>
       <height>781</height>
      </rect>
     </property>
@@ -139,7 +170,7 @@ QTabBar::tab:hover
 }</string>
     </property>
     <property name="currentIndex">
-     <number>9</number>
+     <number>10</number>
     </property>
     <widget class="QWidget" name="fruitTab">
      <attribute name="title">
@@ -190,6 +221,21 @@ QTabBar::tab:hover
      <attribute name="title">
       <string>Misc</string>
      </attribute>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>All</string>
+     </attribute>
+     <widget class="QColumnView" name="columnView">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>581</width>
+        <height>491</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">

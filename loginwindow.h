@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QMessageBox>
 #include <QKeyEvent>
+#include <QLineEdit>
 
 namespace Ui {
 class LoginWindow;
@@ -22,6 +23,8 @@ private slots:
     void on_pushButton_2_clicked();
     void keyPressEvent(QKeyEvent* login);
     void closeEvent(QCloseEvent *event);
+
+    void on_pushButton_2_clicked(bool checked);
 
 private:
     Ui::LoginWindow *ui;
