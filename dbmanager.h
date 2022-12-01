@@ -22,9 +22,9 @@ public:
 
     // AdminWindow functions
     void deleteItem(QString itemname);
-    void editItemPrice(QString itemname, QString price);
+    void editItemPrice(QString item_name, QString sales_price);
     void addItem(QString item_name, QString sales_price);
-    void deleteMember(QString memberName, QString memberNum);
+    void deleteMember(QString memberNum);
     void addMember(QString member_name, QString membership_number, QString membership_type, QString membership_expiration);
     // ManagerWindow functions
     void displaySalesReport(int dayGiven);

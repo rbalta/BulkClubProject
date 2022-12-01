@@ -48,4 +48,57 @@ void DbManager::addMember(QString member_name, QString membership_number, QStrin
         msg.exec();
     }
 }
+void DbManager::editItemPrice(QString item_name, QString sales_price)
+{
+    QSqlQuery qry;
+    qry.prepare("update inventory set sales_price='"+sales_price+"' where item_name='"+item_name+"'");
+    if (qry.exec())
+    {
+        QMessageBox msg;
+        msg.setText("Item Updated");
+        msg.exec();
+    }
+    else
+    {
 
+        QMessageBox msg;
+        msg.setText("Failed to Update Item");
+        msg.exec();
+    }
+}
+void DbManager::deleteItem(QString item_name)
+{
+    QSqlQuery qry;
+    qry.prepare("Delete from inventory where item_name='"+item_name+"'");
+    if (qry.exec())
+    {
+        QMessageBox msg;
+        msg.setText("Item Deleted");
+        msg.exec();
+    }
+    else
+    {
+
+        QMessageBox msg;
+        msg.setText("Failed to Delete Item");
+        msg.exec();
+    }
+}
+void DbManager::deleteMember(QString membership_number)
+{
+    QSqlQuery qry;
+    qry.prepare("Delete from members where membership_number='"+membership_number+"'");
+    if (qry.exec())
+    {
+        QMessageBox msg;
+        msg.setText("Member Deleted");
+        msg.exec();
+    }
+    else
+    {
+
+        QMessageBox msg;
+        msg.setText("Failed to Delete Member");
+        msg.exec();
+    }
+}

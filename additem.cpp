@@ -21,7 +21,7 @@ void addItem::on_pushButton_clicked()
     member_name= ui->nameEdit->text();
     membership_number = ui->memberNumberEdit->text();
     membership_type = ui->typeEdit->text();
-    membership_type = ui->expirationEdit->text();
+    membership_expiration = ui->expirationEdit->text();
     db.addMember(member_name, membership_number, membership_type, membership_expiration);
 }
 

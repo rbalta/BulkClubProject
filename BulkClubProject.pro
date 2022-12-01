@@ -14,6 +14,9 @@ SOURCES += \
     addmember.cpp \
     adminwindow.cpp \
     dbmanager.cpp \
+    deleteitem.cpp \
+    deletemember.cpp \
+    edititem.cpp \
     loginwindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -24,6 +27,9 @@ HEADERS += \
     addmember.h \
     adminwindow.h \
     dbmanager.h \
+    deleteitem.h \
+    deletemember.h \
+    edititem.h \
     loginwindow.h \
     mainwindow.h \
     managerwindow.h
@@ -32,6 +38,9 @@ FORMS += \
     additem.ui \
     addmember.ui \
     adminwindow.ui \
+    deleteitem.ui \
+    deletemember.ui \
+    edititem.ui \
     loginwindow.ui \
     mainwindow.ui \
     managerwindow.ui
