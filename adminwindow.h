@@ -3,6 +3,7 @@
 
 #include <QWidget>
 
+
 namespace Ui {
 class AdminWindow;
 }
@@ -17,6 +18,17 @@ public:
 
 private slots:
     void on_pushButton_4_clicked();
+
+
+    void on_pushButton_9_clicked();
+
+    void on_pushButton_10_clicked();
+
+
+    void on_pushButton_6_clicked();
+
+
+    void on_pushButton_clicked();
 
 private:
     Ui::AdminWindow *ui;
