@@ -7,6 +7,7 @@
 class DbManager
 {
 public:
+
     DbManager(const QString& path);
     // LoginWindow functions
     bool idMatch(int id);
@@ -21,20 +22,18 @@ public:
 
     // AdminWindow functions
     void deleteItem(QString itemname);
-    void editItemPrice(QString itemname, int price);
-    void addItem(QString itemname, int price);
-    void deleteMember(QString memberName, QString memberNum);
-    void addMember(QString memberName, QString memberNum, QString type, QString expirationDate, QString totalSpent, QString rebateAmount);
-
+    void editItemPrice(QString item_name, QString sales_price);
+    void addItem(QString item_name, QString sales_price);
+    void deleteMember(QString memberNum);
+    void addMember(QString member_name, QString membership_number, QString membership_type, QString membership_expiration);
     // ManagerWindow functions
-    void generateSalesReport(QString dayGiven);
-    void queryTotalPurchases();
-    void queryQuantity();
-    void calcRebate();
-    void queryMembershipExp(int month);
-    void queryItemQuant(QString itemName);
-    void queryMemberPurchases(int memNum, QString memName);
-
+    void displaySalesReport(int dayGiven);
+    void displayTotalPurchases();
+    void displayQuantity();
+    void displayRebate();
+    void displayMembership(int month);
+    void displayItemQuant(QString itemName);
+    void displayMemberPurchases(int memNum, QString memName);
 private:
     QSqlDatabase main_db;
 };
