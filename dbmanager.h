@@ -4,10 +4,8 @@
 #include <QObject>
 #include <QtSql>
 
-class DbManager
-{
+class DbManager {
 public:
-
     DbManager(const QString& path);
     // LoginWindow functions
     bool idMatch(int id);
@@ -26,14 +24,17 @@ public:
     void addItem(QString item_name, QString sales_price);
     void deleteMember(QString memberNum);
     void addMember(QString member_name, QString membership_number, QString membership_type, QString membership_expiration);
+
     // ManagerWindow functions
-    void displaySalesReport(int dayGiven);
-    void displayTotalPurchases();
-    void displayQuantity();
-    void displayRebate();
-    void displayMembership(int month);
-    void displayItemQuant(QString itemName);
-    void displayMemberPurchases(int memNum, QString memName);
+    QSqlQuery qryDailyReport(QString purchase_date);
+    QString calcDailyReportRev(QString purchase_date);
+    QString calcDailyReportExecutive(QString purchase_date);
+    QSqlQuery qryMemberReport(QString membership_number);
+//    void qryItemQuant(QString quantity_purchased);
+//    void calcRebate();
+//    void qryMembershipExp(QString membership_expiration);
+//    void qryMemberPurchases(QString membership_number, QString membership_name);
+
 private:
     QSqlDatabase main_db;
 };

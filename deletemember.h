@@ -7,8 +7,7 @@ namespace Ui {
 class deleteMember;
 }
 
-class deleteMember : public QDialog
-{
+class deleteMember : public QDialog {
     Q_OBJECT
 
 public:

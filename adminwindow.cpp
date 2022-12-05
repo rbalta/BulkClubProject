@@ -7,6 +7,7 @@
 #include "edititem.h"
 #include "deleteitem.h"
 #include "deletemember.h"
+
 AdminWindow::AdminWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AdminWindow)
@@ -19,7 +20,7 @@ AdminWindow::~AdminWindow()
     delete ui;
 }
 
-void AdminWindow::on_pushButton_4_clicked()
+void AdminWindow::on_pushButton_3_clicked()
 {
     LoginWindow *login = new LoginWindow;
     this->close();

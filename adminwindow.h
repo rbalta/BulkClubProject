@@ -3,13 +3,11 @@
 
 #include <QWidget>
 
-
 namespace Ui {
 class AdminWindow;
 }
 
-class AdminWindow : public QWidget
-{
+class AdminWindow : public QWidget {
     Q_OBJECT
 
 public:
@@ -17,23 +15,13 @@ public:
     ~AdminWindow();
 
 private slots:
-    void on_pushButton_4_clicked();
-
-
+    void on_pushButton_3_clicked();
     void on_pushButton_9_clicked();
-
     void on_pushButton_10_clicked();
-
-
     void on_pushButton_6_clicked();
-
-
     void on_pushButton_clicked();
-
     void on_pushButton_8_clicked();
-
     void on_pushButton_7_clicked();
-
     void on_pushButton_2_clicked();
 
 private:

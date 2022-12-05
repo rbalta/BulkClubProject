@@ -4,7 +4,7 @@
 DbManager::DbManager(const QString& path)
 {
     main_db = QSqlDatabase::addDatabase("QSQLITE");
-    main_db.setDatabaseName(path);
+    main_db.setDatabaseName("C:/Users/13109/Desktop/database/bulkclubdb.db");
 
     if (main_db.open())
         qDebug() << "Database connected.";
@@ -12,6 +12,8 @@ DbManager::DbManager(const QString& path)
         qDebug() << "Error: Database not found.";
 
 }
+
+// AdminWindow functions
 void DbManager::addItem(QString item_name, QString sales_price)
 {
     QSqlQuery qry;
@@ -30,6 +32,7 @@ void DbManager::addItem(QString item_name, QString sales_price)
         msg.exec();
     }
 }
+
 void DbManager::addMember(QString member_name, QString membership_number, QString membership_type, QString membership_expiration)
 {
     QSqlQuery qry;
@@ -48,6 +51,7 @@ void DbManager::addMember(QString member_name, QString membership_number, QStrin
         msg.exec();
     }
 }
+
 void DbManager::editItemPrice(QString item_name, QString sales_price)
 {
     QSqlQuery qry;
@@ -66,6 +70,7 @@ void DbManager::editItemPrice(QString item_name, QString sales_price)
         msg.exec();
     }
 }
+
 void DbManager::deleteItem(QString item_name)
 {
     QSqlQuery qry;
@@ -84,6 +89,7 @@ void DbManager::deleteItem(QString item_name)
         msg.exec();
     }
 }
+
 void DbManager::deleteMember(QString membership_number)
 {
     QSqlQuery qry;
@@ -103,67 +109,62 @@ void DbManager::deleteMember(QString membership_number)
     }
 }
 
-// Your team should provide an option to generate the sales report
-// (including tax) for any given day by membership type.
-void generateSalesReport(QString dayGiven);
+// ManagerWindow functions
 
-// A store manager should be able to display the total purchases for
-// each member including tax sorted by membership number.  The
-// display should also include a grand total including tax of all the
-// purchases for all the members.
-void queryTotalPurchases();
+// A store manager should be able to display a sales report for any
+// given day. It should include a list of items and quantities sold on that
+// day as well names of the members who shopped that day.  Display
+// the total revenue (including tax) for the given day.  It should also
+// include number of unique Executive members and Regular
+// members who shopped during the given day.
+QSqlQuery DbManager::qryDailyReport(QString purchase_date) {
+    //set query
+    QSqlQuery qry(main_db);
+    qry.prepare("select purchase_date, item_name, quantity_purchased, member_name from sales, members where purchase_date=(:purchase_date)");
+    qry.bindValue(":purchase_date",purchase_date);
+    qry.exec();
 
-// A store manager should be able to display the quantity of each item
-// sold sorted by item name and the total revenue (without tax) for
-// each item.
-void queryQuantity();
-
-// A store manager should be able to display the rebate of all the
-// Executive members sorted by membership number. Rebates are
-// based on purchases before tax.
-void calcRebate();
-
-// A store manager should be able to enter a month and obtain a
-// display of all members whose memberships expire that month as
-// well as the cost to renew their memberships.
-void queryMembershipExp(int month) {
-    QSqlQuery query;
-    query.bindValue(":membership_expiration", month);
-
-    if (query.exec())
-    {
-        QSqlQuery query("SELECT * FROM people");
-        int idName = query.record().indexOf("name");
-        while (query.next())
-        {
-           QString name = query.value(idName).toString();
-           qDebug() << name;
-        }
-       if (query.next())
-       {
-
-       }
-    }
+    return qry;
 }
 
-// A store manager should be able to display the quantity of each item
-// sold sorted by item name and the total revenue (without tax) for
-// each item.
-void queryItemQuant(QString itemName) {
-    QSqlQuery query;
-    query.bindValue(":quantitiy", itemName);
+QString DbManager::calcDailyReportRev(QString purchase_date) {
+    QSqlQuery qry(main_db);
+    qry.prepare("sum(quantity_purchased.sales*sales_price.inventory) as total_price.inventory from sales inner join inventory where purchase_date=(:purchase_date)");
+    qry.bindValue(":purchase_date",purchase_date);
+    qry.exec();
 
-    if (query.exec())
-    {
-       if (query.next())
-       {
-          // it exists
-       }
-    }
+    qDebug() << qry.value(0).toString();
+
+    return qry.value(0).toString();
+}
+
+QString DbManager::calcDailyReportExecutive(QString purchase_date) {
+    QSqlQuery qry(main_db);
+    qry.prepare("select count(membership_type) from members, sales where purchase_date=(:purchase_date)");
+    qry.bindValue(":purchase_date",purchase_date);
+    qry.exec();
+
+    qDebug() << qry.value(0).toString();
+
+    return qry.value(0).toString();
 }
 
 // A store manager should be able to display the total purchases for
 // each member including tax sorted by membership number.  The
 // display should also include a grand total including tax of all the
 // purchases for all the members.
-void queryMemberPurchases(int memNum, QString memName);
+// A store manager should be able to enter a membership number or
+// name and display the total purchases including tax for that member.
+QSqlQuery DbManager::qryMemberReport(QString membership_number) {
+    //set query
+    QSqlQuery qry(main_db);
+
+    qry.prepare("select membership_number, item_name, quantity_purchased, sales_price from sales, inventory where membership_number=(:membership_number)");
+    // qry.prepare("select item_name, sales_price from inventory union select membership_number, item_name, quantity_purchased from sales where membership_number=(:membership_number)");
+
+    qry.bindValue(":membership_number",membership_number);
+    qry.exec();
+
+    return qry;
+}
+
