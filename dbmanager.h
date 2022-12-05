@@ -10,16 +10,17 @@ public:
     DbManager(const QString& path);
 
     // LoginWindow functions
-    bool idMatch(int id);
-    bool passwordCheck(int id, QString* password);
-    void privilegeCheck(int id);
+    bool idMatch(QString id);
+    bool passwordCheck(QString id, QString password);
+    QString accessCheck(QString id);
 
     // Employee/MainWindow Functions
-    void pullInventoryItems();
-    bool memberExists(int memNum, bool& isExec);
-    void addTransaction(QDate date, int memNum, int item[], int quantity[]);
-    void addToMemberTotal(int memNum, double price);
-    void addToExecCashback(int memNum, double cashback);
+    QSqlTableModel* pullInventoryItems();
+    bool memberExists(int memNum);
+    QSqlQuery pullMemberInfo(int memNum);
+    void addTransaction(QDate date, int memNum, QStringList items, QList<int> quantities);
+    void addToMemberTotal(int memNum, const double price);
+    void addToExecCashback(int memNum, const double totalBeforeTax, const double cashbackPercent);
 
     // AdminWindow functions
     void deleteItem(QString itemname);

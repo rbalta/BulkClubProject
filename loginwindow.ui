@@ -162,13 +162,21 @@ color: rgb(0, 0, 0);</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI</family>
+     <pointsize>12</pointsize>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(89, 89, 89);
-
+font: 12pt &quot;Segoe UI&quot;;
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>Admin Access</string>
+    <string>Forgot Password?</string>
    </property>
   </widget>
  </widget>
