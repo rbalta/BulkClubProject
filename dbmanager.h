@@ -9,16 +9,19 @@ class DbManager
 public:
 
     DbManager(const QString& path);
+
     // LoginWindow functions
-    bool idMatch(int id);
-    bool passwordCheck(int id, QString* password);
-    void privilegeCheck(int id);
+    bool idMatch(QString id);
+    bool passwordCheck(QString id, QString password);
+    QString accessCheck(QString id);
 
     // Employee/MainWindow Functions
-    void displayInventoryItems();
-    void addTransaction(QDate date, int memNum, int item[], int quantity[]);
-    void addToMemberTotal(int memNum, double price);
-    void addToExecCashback(int memNum, double cashback);
+    QSqlTableModel* pullInventoryItems();
+    bool memberExists(int memNum);
+    QSqlQuery pullMemberInfo(int memNum);
+    void addTransaction(QDate date, int memNum, QStringList items, QList<int> quantities);
+    void addToMemberTotal(int memNum, const double price);
+    void addToExecCashback(int memNum, const double totalBeforeTax, const double cashbackPercent);
 
     // AdminWindow functions
     void deleteItem(QString itemname);
@@ -26,6 +29,7 @@ public:
     void addItem(QString item_name, QString sales_price);
     void deleteMember(QString memberNum);
     void addMember(QString member_name, QString membership_number, QString membership_type, QString membership_expiration);
+
     // ManagerWindow functions
     void displaySalesReport(int dayGiven);
     void displayTotalPurchases();
