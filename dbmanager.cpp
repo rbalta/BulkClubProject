@@ -12,6 +12,7 @@ DbManager::DbManager(const QString& path)
         qDebug() << "Error: Database not found.";
 
 }
+//admin functions
 void DbManager::addItem(QString item_name, QString sales_price)
 {
     QSqlQuery qry;
@@ -99,6 +100,24 @@ void DbManager::deleteMember(QString membership_number)
 
         QMessageBox msg;
         msg.setText("Failed to Delete Member");
+        msg.exec();
+    }
+}
+void DbManager::changeMembership(QString membership_number, QString membership_type)
+{
+    QSqlQuery qry;
+    qry.prepare("update members set membership_type='"+membership_type+"' where membership_number= '"+membership_number+"'");
+    if (qry.exec())
+    {
+        QMessageBox msg;
+        msg.setText("Membership Updated");
+        msg.exec();
+    }
+    else
+    {
+
+        QMessageBox msg;
+        msg.setText("Failed to Update Membership");
         msg.exec();
     }
 }
