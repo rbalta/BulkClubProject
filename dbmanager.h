@@ -32,12 +32,11 @@ public:
     QSqlQuery qryDailyReport(QString purchase_date);
     QString calcDailyReportRev(QString purchase_date);
     QString calcDailyReportExecutive(QString purchase_date);
+    QString calcDailyReportRegular(QString purchase_date);
     QSqlQuery qryMemberReport(QString membership_number);
-    double calcTax();
-//    void qryItemQuant(QString quantity_purchased);
-//    void calcRebate();
-//    void qryMembershipExp(QString membership_expiration);
-//    void qryMemberPurchases(QString membership_number, QString membership_name);
+    QSqlQuery qryItemReport(QString item_name);
+    QSqlQuery qryMemberExp(QString membership_expiration);
+
 
 private:
     QSqlDatabase main_db;

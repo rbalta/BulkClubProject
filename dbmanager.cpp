@@ -4,7 +4,7 @@
 DbManager::DbManager(const QString& path)
 {
     main_db = QSqlDatabase::addDatabase("QSQLITE");
-    main_db.setDatabaseName("C:/Users/13109/Desktop/database/bulkclubdb.db");
+    main_db.setDatabaseName(path);
 
     if (main_db.open())
         qDebug() << "Database connected.";
@@ -109,26 +109,30 @@ void DbManager::deleteMember(QString membership_number)
     }
 }
 
+
 // ManagerWindow functions
 
 // A store manager should be able to display a sales report for any
 // given day. It should include a list of items and quantities sold on that
-// day as well names of the members who shopped that day.  Display
-// the total revenue (including tax) for the given day.  It should also
-// include number of unique Executive members and Regular
-// members who shopped during the given day.
+// day as well names of the members who shopped that day.
 QSqlQuery DbManager::qryDailyReport(QString purchase_date) {
     //set query
-    QSqlQuery qry(main_db);
-    qry.prepare("select purchase_date, item_name, quantity_purchased, member_name from sales, members where purchase_date=(:purchase_date)");
+    QSqlQuery qry;
+
+    //create, bind, and execute query
+    qry.prepare("select purchase_date, member_name, item_name, quantity_purchased from sales, members where purchase_date=(:purchase_date)");
     qry.bindValue(":purchase_date",purchase_date);
     qry.exec();
 
+    //return to manager window
     return qry;
 }
 
+// Display the total revenue (including tax) for the given day.
 QString DbManager::calcDailyReportRev(QString purchase_date) {
-    QSqlQuery qry(main_db);
+    //set query
+    QSqlQuery qry;
+
     //qry.prepare("sum(quantity_purchased.sales*sales_price.inventory) as total_price.inventory from sales inner join inventory where purchase_date=(:purchase_date)");
     qry.prepare("select total_price from inventory where item_name=(:item_name)");
     qry.bindValue(":item_name",purchase_date);
@@ -139,13 +143,33 @@ QString DbManager::calcDailyReportRev(QString purchase_date) {
     return qry.value(0).toString();
 }
 
+// It should also include number of unique Executive members and Regular
+// members who shopped during the given day.
 QString DbManager::calcDailyReportExecutive(QString purchase_date) {
-    QSqlQuery qry(main_db);
-    qry.prepare("select count(membership_type) from members, sales where purchase_date=(:purchase_date)");
-    qry.bindValue(":purchase_date",purchase_date);
-    qry.exec();
+    QSqlQuery qry;
 
-    qDebug() << qry.value(0).toString();
+    qry.prepare(
+                "SELECT COUNT (DISTINCT sales.membership_number) "
+                "FROM sales inner join members on sales.membership_number = members.membership_number "
+                "WHERE members.membership_type = :membership_type AND sales.purchase_date = :purchase_date");
+    qry.bindValue(":purchase_date",purchase_date);
+    qry.bindValue(":membership_type", "Executive");
+    qry.exec();
+    qry.next();
+
+    return qry.value(0).toString();
+}
+
+QString DbManager::calcDailyReportRegular(QString purchase_date) {
+    QSqlQuery qry;
+
+    qry.prepare("SELECT COUNT (DISTINCT sales.membership_number) "
+                "FROM sales inner join members on sales.membership_number = members.membership_number "
+                "WHERE members.membership_type = :membership_type AND sales.purchase_date = :purchase_date");
+    qry.bindValue(":purchase_date",purchase_date);
+    qry.bindValue(":membership_type", "Regular");
+    qry.exec();
+    qry.next();
 
     return qry.value(0).toString();
 }
@@ -158,12 +182,53 @@ QString DbManager::calcDailyReportExecutive(QString purchase_date) {
 // name and display the total purchases including tax for that member.
 QSqlQuery DbManager::qryMemberReport(QString membership_number) {
     //set query
+    QSqlQuery qry;
+
+    qry.prepare("SELECT inventory.item_name, inventory.sales_price, sales.membership_number, sales.quantity_purchased "
+                "FROM sales inner join inventory on sales.item_name = inventory.item_name "
+                "WHERE sales.membership_number = (:membership_number)");
+    qry.bindValue(":membership_number",membership_number);
+    qry.exec();
+
+    return qry;
+}
+
+// A store manager should be able to display the quantity of each item
+// sold sorted by item name and the total revenue (without tax) for
+// each item.
+// A store manager should be able to enter an item name and only
+// display the quantity of that item sold as well as the total revenue
+// (without tax) for the item.  No other items should be displayed.
+QSqlQuery DbManager::qryItemReport(QString item_name) {
+    //set query
+    QSqlQuery qry;
+
+    qry.prepare("SELECT inventory.item_name, sales.quantity_purchased, inventory.sales_price, (sales.quantity_purchased * inventory.sales_price)"
+                "FROM sales inner join inventory on sales.item_name = inventory.item_name"
+                "WHERE sales.item_name = (:item_name)");
+    qry.bindValue(":item_name",item_name);
+    qry.exec();
+
+    qDebug() << qry.value(0);
+
+    return qry;
+}
+
+// A store manager should be able to display the rebate of all the
+// Executive members sorted by membership number. Rebates are
+// based on purchases before tax.
+
+
+// A store manager should be able to enter a month and obtain a
+// display of all members whose memberships expire that month as
+// well as the cost to renew their memberships.
+QSqlQuery DbManager::qryMemberExp(QString membership_expiration) {
+    //set query
     QSqlQuery qry(main_db);
 
 
-    qry.prepare("select sales.membership_number, inventory.item_name, sales.quantity_purchased, sales.sales_price "
-                "from inventory inner join sales on inventory.item_name=sales.item_name where membership_number=(:membership_number)");
-    qry.bindValue(":membership_number",membership_number);
+    qry.prepare("select membership_expiration=(:membership_expiration)");
+    qry.bindValue(":membership_expiration",membership_expiration);
     qry.exec();
 
     return qry;

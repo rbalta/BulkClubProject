@@ -3,7 +3,7 @@
 #include "loginwindow.h"
 #include "dbmanager.h"
 
-DbManager dbase("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
+DbManager dbase("C:/Users/13109/Desktop/database/bulkclubdb.db");
 const double SALES_TAX = .0775;
 const double EXEC_CASHBACK = 0.02;
 

@@ -60,7 +60,7 @@ hr { height: 1px; border-width: 0; }
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -165,7 +165,7 @@ hr { height: 1px; border-width: 0; }
        <x>280</x>
        <y>20</y>
        <width>600</width>
-       <height>89</height>
+       <height>41</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -222,7 +222,7 @@ hr { height: 1px; border-width: 0; }
        <x>280</x>
        <y>20</y>
        <width>600</width>
-       <height>89</height>
+       <height>41</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
@@ -234,7 +234,7 @@ hr { height: 1px; border-width: 0; }
        </widget>
       </item>
       <item>
-       <widget class="QPlainTextEdit" name="plainTextEdit_6"/>
+       <widget class="QLineEdit" name="lineEdit_3"/>
       </item>
       <item>
        <widget class="QLabel" name="label_8">
