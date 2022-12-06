@@ -24,7 +24,7 @@ void AdminWindow::on_pushButton_3_clicked()
 {
     LoginWindow *login = new LoginWindow;
     this->close();
-    login->exec();
+    login->show();
 }
 
 

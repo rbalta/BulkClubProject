@@ -3,13 +3,19 @@
 #include "mainwindow.h"
 #include "adminwindow.h"
 #include "managerwindow.h"
+#include "dbmanager.h"
+
+DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-    this->setFixedSize(650,400);
+    this->setFixedSize(650,350);
+    ui->lineEdit->setPlaceholderText("User ID");
+    ui->lineEdit_2->setPlaceholderText("Password");
+    ui->lineEdit_2->setEchoMode(QLineEdit::Password);
 }
 
 LoginWindow::~LoginWindow()
@@ -19,47 +25,59 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_pushButton_clicked() // Login button
 {
-    if (ui->textEdit->toPlainText() == "employee")
+    QString username = ui->lineEdit->text();
+    QString password = ui->lineEdit_2->text();
+
+    if(db.idMatch(username)) // check user loop
     {
-        MainWindow *main = new MainWindow;
-        this->hide();
-        main->showMaximized();
-    }
-    else if (ui->textEdit->toPlainText() == "manager")
-    {
-        ManagerWindow *m = new ManagerWindow;
-        this->hide();
-        m->showMaximized();
-    }
-    else if (ui->textEdit->toPlainText() == "admin")
-    {
-        AdminWindow *a = new AdminWindow;
-        this->hide();
-        a->showMaximized();
+        if (db.passwordCheck(username, password)) // check pass loop
+        {
+            QString access = db.accessCheck(username);
+            if (access == "employee") // check access level loop
+            {
+                MainWindow *main = new MainWindow;
+                this->hide();
+                main->show();
+            }
+            else if (access == "manager")
+            {
+                ManagerWindow *m = new ManagerWindow;
+                this->hide();
+                m->show();
+            }
+            else if (access == "admin")
+            {
+                AdminWindow *a = new AdminWindow;
+                this->hide();
+                a->show();
+            }
+            else
+                QMessageBox::warning(this, tr("Error"),
+                    access);
+        }
+        else
+        {
+            QMessageBox::information(this, tr("Error"),
+                tr("Invalid password."));
+        }
     }
     else
     {
-        QMessageBox::information(
-            this,
-            tr("Error"),
-            tr("Invalid ID or password.") );
+        QMessageBox::information(this, tr("Error"),
+            tr("Username does not exist."));
     }
 }
 
-void LoginWindow::on_pushButton_2_clicked() // Admin button
+void LoginWindow::on_pushButton_2_clicked() // forgot password button
 {
-    QString styleSheet = "background-color: rgba(230, 100, 77, 100); "
-                         "color: rgb(255, 255, 255); "
-                         "font: 16pt 'Segoe UI';";
-    ui->textBrowser->setText("Admin Login");
-    ui->textBrowser->setStyleSheet(styleSheet);
-    ui->textBrowser->setAlignment(Qt::AlignCenter);
+    QMessageBox::information(this, tr("Help"),
+            tr("Please contact an administrator to reset your password."));
 }
 
 void LoginWindow::keyPressEvent(QKeyEvent* login) // use Enter key to also login
 {
     if(login->key() == Qt::Key_Return)
-        on_pushButton_clicked(); // doesn't work yet
+        on_pushButton_clicked();
 }
 
 void LoginWindow::closeEvent(QCloseEvent *event) // confirms exit from login screen
