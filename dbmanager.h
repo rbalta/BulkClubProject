@@ -34,7 +34,9 @@ public:
     QString calcDailyReportExecutive(QString purchase_date);
     QString calcDailyReportRegular(QString purchase_date);
     QSqlQuery qryMemberReport(QString membership_number);
+    QString calcMemberReportRev(QString membership_number);
     QSqlQuery qryItemReport(QString item_name);
+    QString qryItemRevenue(QString item_name);
     QSqlQuery qryMemberExp(QString membership_expiration);
 
 

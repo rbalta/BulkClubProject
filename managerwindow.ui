@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgba(23, 122, 198, 100);</string>
+  </property>
   <widget class="QTextBrowser" name="textBrowser">
    <property name="geometry">
     <rect>
@@ -27,6 +30,9 @@
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: white</string>
    </property>
    <property name="html">
     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -46,6 +52,10 @@ hr { height: 1px; border-width: 0; }
      <height>31</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: white;
+background-color: rgb(72, 149, 208);</string>
+   </property>
    <property name="text">
     <string>Logout</string>
    </property>
@@ -60,7 +70,7 @@ hr { height: 1px; border-width: 0; }
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -75,6 +85,9 @@ hr { height: 1px; border-width: 0; }
        <height>481</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
     </widget>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
@@ -84,6 +97,10 @@ hr { height: 1px; border-width: 0; }
        <width>93</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;
+background-color: rgb(72, 149, 208);</string>
      </property>
      <property name="text">
       <string>Load</string>
@@ -101,43 +118,71 @@ hr { height: 1px; border-width: 0; }
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QLabel" name="label_4">
+        <property name="styleSheet">
+         <string notr="true">color:white;</string>
+        </property>
         <property name="text">
          <string>Enter Date:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
-      </item>
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Total Revenue:</string>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="styleSheet">
+         <string notr="true">color: white;</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QTextBrowser" name="textBrowser_2"/>
+       <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">color:white;</string>
+        </property>
+        <property name="text">
+         <string>Total Revenue (inlcuding tax) $:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextBrowser" name="textBrowser_2">
+        <property name="styleSheet">
+         <string notr="true">color: white;</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_2">
+        <property name="styleSheet">
+         <string notr="true">color:white;</string>
+        </property>
         <property name="text">
          <string>Number of Executive Shoppers:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QTextBrowser" name="textBrowser_3"/>
+       <widget class="QTextBrowser" name="textBrowser_3">
+        <property name="styleSheet">
+         <string notr="true">color: white;</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_3">
+        <property name="styleSheet">
+         <string notr="true">color: white;</string>
+        </property>
         <property name="text">
          <string>Number of Regular Shoppers:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QTextBrowser" name="textBrowser_4"/>
+       <widget class="QTextBrowser" name="textBrowser_4">
+        <property name="styleSheet">
+         <string notr="true">color: white;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -150,10 +195,14 @@ hr { height: 1px; border-width: 0; }
      <property name="geometry">
       <rect>
        <x>890</x>
-       <y>30</y>
+       <y>50</y>
        <width>93</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;
+background-color: rgb(72, 149, 208);</string>
      </property>
      <property name="text">
       <string>Load</string>
@@ -165,29 +214,43 @@ hr { height: 1px; border-width: 0; }
        <x>280</x>
        <y>20</y>
        <width>600</width>
-       <height>41</height>
+       <height>89</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QLabel" name="label_14">
+        <property name="styleSheet">
+         <string notr="true">color:white;</string>
+        </property>
         <property name="text">
          <string>Enter Member ID:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_2"/>
+       <widget class="QLineEdit" name="lineEdit_2">
+        <property name="styleSheet">
+         <string notr="true">color: white;</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_15">
+        <property name="styleSheet">
+         <string notr="true">color:white;</string>
+        </property>
         <property name="text">
          <string>Total Revenue:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QTextBrowser" name="textBrowser_5"/>
+       <widget class="QTextBrowser" name="textBrowser_5">
+        <property name="styleSheet">
+         <string notr="true">color: white;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -195,10 +258,13 @@ hr { height: 1px; border-width: 0; }
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>80</y>
+       <y>120</y>
        <width>1171</width>
-       <height>411</height>
+       <height>371</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
      </property>
     </widget>
    </widget>
@@ -210,10 +276,13 @@ hr { height: 1px; border-width: 0; }
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>80</y>
+       <y>120</y>
        <width>1171</width>
-       <height>411</height>
+       <height>371</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
      </property>
     </widget>
     <widget class="QWidget" name="layoutWidget">
@@ -222,29 +291,43 @@ hr { height: 1px; border-width: 0; }
        <x>280</x>
        <y>20</y>
        <width>600</width>
-       <height>41</height>
+       <height>89</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="label_5">
+        <property name="styleSheet">
+         <string notr="true">color:white;</string>
+        </property>
         <property name="text">
          <string>Enter Item:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_3"/>
+       <widget class="QLineEdit" name="lineEdit_3">
+        <property name="styleSheet">
+         <string notr="true">color: white;</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_8">
+        <property name="styleSheet">
+         <string notr="true">color:white;</string>
+        </property>
         <property name="text">
          <string>Total Revenue:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QTextBrowser" name="textBrowser_6"/>
+       <widget class="QTextBrowser" name="textBrowser_6">
+        <property name="styleSheet">
+         <string notr="true">color: white;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -252,10 +335,14 @@ hr { height: 1px; border-width: 0; }
      <property name="geometry">
       <rect>
        <x>890</x>
-       <y>30</y>
+       <y>50</y>
        <width>93</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;
+background-color: rgb(72, 149, 208);</string>
      </property>
      <property name="text">
       <string>Load</string>
@@ -275,6 +362,9 @@ hr { height: 1px; border-width: 0; }
        <height>411</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
     </widget>
     <widget class="QPushButton" name="pushButton_3">
      <property name="geometry">
@@ -284,6 +374,10 @@ hr { height: 1px; border-width: 0; }
        <width>93</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;
+background-color: rgb(72, 149, 208);</string>
      </property>
      <property name="text">
       <string>Load</string>
@@ -303,6 +397,9 @@ hr { height: 1px; border-width: 0; }
        <height>411</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
     </widget>
     <widget class="QWidget" name="layoutWidget_4">
      <property name="geometry">
@@ -310,19 +407,26 @@ hr { height: 1px; border-width: 0; }
        <x>350</x>
        <y>20</y>
        <width>301</width>
-       <height>89</height>
+       <height>51</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QLabel" name="label_13">
+        <property name="styleSheet">
+         <string notr="true">color:white;</string>
+        </property>
         <property name="text">
          <string>Enter Month:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPlainTextEdit" name="plainTextEdit_9"/>
+       <widget class="QLineEdit" name="lineEdit_4">
+        <property name="styleSheet">
+         <string notr="true">color: white;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -334,6 +438,10 @@ hr { height: 1px; border-width: 0; }
        <width>93</width>
        <height>29</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;
+background-color: rgb(72, 149, 208);</string>
      </property>
      <property name="text">
       <string>Load</string>

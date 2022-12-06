@@ -73,6 +73,8 @@ void ManagerWindow::on_pushButton_2_clicked() {
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery(datab.qryItemReport(item_name));
     ui->tableView_3->setModel(model);
+
+    ui->textBrowser_6->setText(datab.qryItemRevenue(item_name));
 }
 
 // A store manager should be able to display the rebate of all the
@@ -83,18 +85,11 @@ void ManagerWindow::on_pushButton_2_clicked() {
 // display of all members whose memberships expire that month as
 // well as the cost to renew their memberships.
 void ManagerWindow::on_pushButton_7_clicked() {
-    //open database
-    DbManager db("C:/Users/bounc/Documents/GitHub/BulkClubProject/bulkclubdb.db");
-
-    QSqlQuery qryMemExpReport;
-
     //read from text editor
-    QString membership_expiration = ui->lineEdit_3->text();
-
-//    qryMemExpReport = db.(membership_expiration);
+    QString membership_expiration = ui->lineEdit_4->text();
 
     QSqlQueryModel * model=new QSqlQueryModel();
-    model->setQuery(std::move(qryMemExpReport));
+    model->setQuery(datab.qryMemberExp(membership_expiration));
 
     ui->tableView_9->setModel(model);
 }

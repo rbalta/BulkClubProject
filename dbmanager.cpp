@@ -120,7 +120,10 @@ QSqlQuery DbManager::qryDailyReport(QString purchase_date) {
     QSqlQuery qry;
 
     //create, bind, and execute query
-    qry.prepare("select purchase_date, member_name, item_name, quantity_purchased from sales, members where purchase_date=(:purchase_date)");
+    qry.prepare("SELECT sales.purchase_date, members.member_name, sales.item_name, sales.quantity_purchased "
+                "FROM sales INNER JOIN members ON sales.membership_number = members.membership_number "
+                "WHERE sales.purchase_date = (:purchase_date)");
+
     qry.bindValue(":purchase_date",purchase_date);
     qry.exec();
 
@@ -133,12 +136,13 @@ QString DbManager::calcDailyReportRev(QString purchase_date) {
     //set query
     QSqlQuery qry;
 
-    //qry.prepare("sum(quantity_purchased.sales*sales_price.inventory) as total_price.inventory from sales inner join inventory where purchase_date=(:purchase_date)");
-    qry.prepare("select total_price from inventory where item_name=(:item_name)");
-    qry.bindValue(":item_name",purchase_date);
-    qry.exec();
+    qry.prepare("SELECT SUM (((inventory.sales_price * 1.0775)) * sales.quantity_purchased) "
+                "FROM sales INNER JOIN inventory ON sales.item_name = inventory.item_name "
+                "WHERE sales.purchase_date = (:purchase_date)");
 
-    qDebug() << qry.value(0).toString();
+    qry.bindValue(":purchase_date",purchase_date);
+    qry.exec();
+    qry.next();
 
     return qry.value(0).toString();
 }
@@ -148,8 +152,7 @@ QString DbManager::calcDailyReportRev(QString purchase_date) {
 QString DbManager::calcDailyReportExecutive(QString purchase_date) {
     QSqlQuery qry;
 
-    qry.prepare(
-                "SELECT COUNT (DISTINCT sales.membership_number) "
+    qry.prepare("SELECT COUNT (DISTINCT sales.membership_number) "
                 "FROM sales inner join members on sales.membership_number = members.membership_number "
                 "WHERE members.membership_type = :membership_type AND sales.purchase_date = :purchase_date");
     qry.bindValue(":purchase_date",purchase_date);
@@ -184,29 +187,11 @@ QSqlQuery DbManager::qryMemberReport(QString membership_number) {
     //set query
     QSqlQuery qry;
 
-    qry.prepare("SELECT inventory.item_name, inventory.sales_price, sales.membership_number, sales.quantity_purchased "
+    qry.prepare("SELECT sales.membership_number, inventory.item_name, inventory.sales_price, sales.quantity_purchased, "
+                "((inventory.sales_price * 1.0775) * sales.quantity_purchased) AS 'total_purchased' "
                 "FROM sales inner join inventory on sales.item_name = inventory.item_name "
-                "WHERE sales.membership_number = (:membership_number)");
+                "WHERE sales.membership_number = :membership_number");
     qry.bindValue(":membership_number",membership_number);
-    qry.exec();
-
-    return qry;
-}
-
-// A store manager should be able to display the quantity of each item
-// sold sorted by item name and the total revenue (without tax) for
-// each item.
-// A store manager should be able to enter an item name and only
-// display the quantity of that item sold as well as the total revenue
-// (without tax) for the item.  No other items should be displayed.
-QSqlQuery DbManager::qryItemReport(QString item_name) {
-    //set query
-    QSqlQuery qry;
-
-    qry.prepare("SELECT inventory.item_name, sales.quantity_purchased, inventory.sales_price, (sales.quantity_purchased * inventory.sales_price)"
-                "FROM sales inner join inventory on sales.item_name = inventory.item_name"
-                "WHERE sales.item_name = (:item_name)");
-    qry.bindValue(":item_name",item_name);
     qry.exec();
 
     qDebug() << qry.value(0);
@@ -214,9 +199,70 @@ QSqlQuery DbManager::qryItemReport(QString item_name) {
     return qry;
 }
 
+QString DbManager::calcMemberReportRev(QString membership_number) {
+    //set query
+    QSqlQuery qry;
+
+    qry.prepare("SELECT (SUM ((inventory.sales_price * 1.0775) * sales.quantity_purchased)) "
+                "FROM sales INNER JOIN inventory ON sales.item_name = inventory.item_name "
+                "WHERE sales.membership_number = 12345");
+//    qry.bindValue(":membership_number",membership_number);
+    qry.exec();
+    qry.next();
+
+//    qDebug() << qry.value(0).toString();
+
+    return qry.value(0).toString();
+}
+
+// A store manager should be able to display the quantity of each item
+// sold sorted by item name and the total revenue (without tax) for
+// each item.
+QSqlQuery DbManager::qryItemReport(QString item_name) {
+    //set query
+    QSqlQuery qry;
+
+    qry.prepare("SELECT inventory.item_name, sales.quantity_purchased, inventory.sales_price, (sales.quantity_purchased * inventory.sales_price) AS 'total_price' "
+                "FROM sales inner join inventory on sales.item_name = inventory.item_name "
+                "WHERE sales.item_name = (:item_name)");
+
+    qry.bindValue(":item_name",item_name);
+    qry.exec();
+
+    return qry;
+}
+
+// A store manager should be able to enter an item name and only
+// display the quantity of that item sold as well as the total revenue
+// (without tax) for the item.  No other items should be displayed.
+QString DbManager::qryItemRevenue(QString item_name) {
+    //set query
+    QSqlQuery qry;
+
+    qry.prepare("SELECT SUM(((inventory.sales_price * 1.0775)) * sales.quantity_purchased) AS 'total_spent' "
+                "FROM sales INNER JOIN inventory ON sales.item_name = inventory.item_name "
+                "WHERE sales.membership_number = :membership_number");
+
+    qry.bindValue(":item_name",item_name);
+    qry.exec();
+    qry.next();
+
+    return qry.value(0).toString();
+}
+
 // A store manager should be able to display the rebate of all the
 // Executive members sorted by membership number. Rebates are
 // based on purchases before tax.
+
+
+
+
+
+
+
+
+
+
 
 
 // A store manager should be able to enter a month and obtain a
@@ -224,15 +270,18 @@ QSqlQuery DbManager::qryItemReport(QString item_name) {
 // well as the cost to renew their memberships.
 QSqlQuery DbManager::qryMemberExp(QString membership_expiration) {
     //set query
-    QSqlQuery qry(main_db);
+    QSqlQuery qry;
 
+    qry.prepare("select membership_expiration, member_name "
+                "from members "
+                "where membership_expiration=(:membership_expiration)");
 
-    qry.prepare("select membership_expiration=(:membership_expiration)");
     qry.bindValue(":membership_expiration",membership_expiration);
     qry.exec();
 
     return qry;
 }
+
 
 // Login Window Functions
 bool DbManager::idMatch(QString id)
