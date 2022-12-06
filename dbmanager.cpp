@@ -129,8 +129,9 @@ QSqlQuery DbManager::qryDailyReport(QString purchase_date) {
 
 QString DbManager::calcDailyReportRev(QString purchase_date) {
     QSqlQuery qry(main_db);
-    qry.prepare("sum(quantity_purchased.sales*sales_price.inventory) as total_price.inventory from sales inner join inventory where purchase_date=(:purchase_date)");
-    qry.bindValue(":purchase_date",purchase_date);
+    //qry.prepare("sum(quantity_purchased.sales*sales_price.inventory) as total_price.inventory from sales inner join inventory where purchase_date=(:purchase_date)");
+    qry.prepare("select total_price from inventory where item_name=(:item_name)");
+    qry.bindValue(":item_name",purchase_date);
     qry.exec();
 
     qDebug() << qry.value(0).toString();
@@ -159,9 +160,9 @@ QSqlQuery DbManager::qryMemberReport(QString membership_number) {
     //set query
     QSqlQuery qry(main_db);
 
-    qry.prepare("select membership_number, item_name, quantity_purchased, sales_price from sales, inventory where membership_number=(:membership_number)");
-    // qry.prepare("select item_name, sales_price from inventory union select membership_number, item_name, quantity_purchased from sales where membership_number=(:membership_number)");
 
+    qry.prepare("select sales.membership_number, inventory.item_name, sales.quantity_purchased, sales.sales_price "
+                "from inventory inner join sales on inventory.item_name=sales.item_name where membership_number=(:membership_number)");
     qry.bindValue(":membership_number",membership_number);
     qry.exec();
 

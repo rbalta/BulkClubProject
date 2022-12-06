@@ -30,6 +30,7 @@ public:
     QString calcDailyReportRev(QString purchase_date);
     QString calcDailyReportExecutive(QString purchase_date);
     QSqlQuery qryMemberReport(QString membership_number);
+    double calcTax();
 //    void qryItemQuant(QString quantity_purchased);
 //    void calcRebate();
 //    void qryMembershipExp(QString membership_expiration);

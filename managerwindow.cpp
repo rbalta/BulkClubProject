@@ -40,7 +40,7 @@ void ManagerWindow::on_pushButton_clicked() {
     //read from text editor
     QString purchase_date = ui->lineEdit->text();
     qryReport = db.qryDailyReport(purchase_date);
-    qryRev = db.calcDailyReportRev(purchase_date);
+    qryRev = db.calcDailyReportRev("1 gallon of milk");
     qryExe = db.calcDailyReportExecutive(purchase_date);
 
     QSqlQueryModel * model=new QSqlQueryModel();
