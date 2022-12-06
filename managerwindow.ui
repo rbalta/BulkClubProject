@@ -70,7 +70,7 @@ background-color: rgb(72, 149, 208);</string>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -241,7 +241,7 @@ background-color: rgb(72, 149, 208);</string>
          <string notr="true">color:white;</string>
         </property>
         <property name="text">
-         <string>Total Revenue:</string>
+         <string>Grand Total (including tax) $:</string>
         </property>
        </widget>
       </item>
@@ -318,7 +318,7 @@ background-color: rgb(72, 149, 208);</string>
          <string notr="true">color:white;</string>
         </property>
         <property name="text">
-         <string>Total Revenue:</string>
+         <string>Total Revenue (without tax) $:</string>
         </property>
        </widget>
       </item>

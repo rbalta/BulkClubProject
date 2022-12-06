@@ -205,12 +205,12 @@ QString DbManager::calcMemberReportRev(QString membership_number) {
 
     qry.prepare("SELECT (SUM ((inventory.sales_price * 1.0775) * sales.quantity_purchased)) "
                 "FROM sales INNER JOIN inventory ON sales.item_name = inventory.item_name "
-                "WHERE sales.membership_number = 12345");
-//    qry.bindValue(":membership_number",membership_number);
+                "WHERE sales.membership_number = '12345'");
+    qry.bindValue(":membership_number",membership_number);
     qry.exec();
     qry.next();
 
-//    qDebug() << qry.value(0).toString();
+    qDebug() << qry.value(0).toString();
 
     return qry.value(0).toString();
 }
@@ -239,7 +239,7 @@ QString DbManager::qryItemRevenue(QString item_name) {
     //set query
     QSqlQuery qry;
 
-    qry.prepare("SELECT SUM(((inventory.sales_price * 1.0775)) * sales.quantity_purchased) AS 'total_spent' "
+    qry.prepare("SELECT SUM (inventory.sales_price * sales.quantity_purchased) AS 'total_spent' "
                 "FROM sales INNER JOIN inventory ON sales.item_name = inventory.item_name "
                 "WHERE sales.membership_number = :membership_number");
 
@@ -271,8 +271,10 @@ QString DbManager::qryItemRevenue(QString item_name) {
 QSqlQuery DbManager::qryMemberExp(QString membership_expiration) {
     //set query
     QSqlQuery qry;
-
-    qry.prepare("select membership_expiration, member_name "
+    qry.prepare("select membership_expiration, member_name, membership_type, "
+                "CASE WHEN membership_type = 'Regular' THEN '65' "
+                "ELSE '120' "
+                "END AS 'Cost of Renewal' "
                 "from members "
                 "where membership_expiration=(:membership_expiration)");
 
