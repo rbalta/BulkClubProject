@@ -4,8 +4,8 @@
 #include "dbmanager.h"
 
 DbManager dbase("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
-const double SALES_TAX = .0775;
-const double EXEC_CASHBACK = 0.02;
+const float SALES_TAX = .0775;
+const float EXEC_CASHBACK = 0.02;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -96,15 +96,15 @@ void MainWindow::updateTransactionTotals()
     if (ui->tableView_2->model() == NULL)
         return;
 
-    double price = 0;
-    int quantity = 0;
-    double totalBeforeTax = 0;
-    double taxAmount = 0;
+    float price = 0;
+    // int quantity = 0;
+    float totalBeforeTax = 0;
+    float taxAmount = 0;
 
     for (int i = 0; i < ui->tableView_2->model()->rowCount(); i++)
     {
-       quantity = ui->tableView_2->model()->index(i,2).data().toInt();
-       price = ui->tableView_2->model()->index(i,1).data().toDouble();
+       // quantity = ui->tableView_2->model()->index(i,2).data().toInt();
+       price = ui->tableView_2->model()->index(i,1).data().toFloat();
        totalBeforeTax += (price);
 
     }
@@ -128,42 +128,44 @@ void MainWindow::updateTransactionTotals()
 void MainWindow::on_fruitButton_clicked() // button filters for inventory NOT WORKING YET
 {
     ui->tableView->show();
-    QSortFilterProxyModel *filter = new QSortFilterProxyModel();
+    QSortFilterProxyModel *filter = new QSortFilterProxyModel;
     filter->setSourceModel(ui->tableView->model());
-    filter->setFilterKeyColumn(3);
 
     filter->setFilterRegularExpression("fruit");
+    filter->setFilterKeyColumn(3);
 }
 
 void MainWindow::on_tableView_doubleClicked() // adds items to transaction window
 {
-//    QAbstractItemModel *item = ui->memDisplay->model();
-//    if (item == NULL) // checks if a member ID has been added first
-//    {
-//        QMessageBox::warning(this, "Transaction",
-//                                tr("Please enter a member ID."));
-//        return;
-//    }
+    QAbstractItemModel *item = ui->memDisplay->model();
+    if (item == NULL) // checks if a member ID has been added first
+    {
+        QMessageBox::warning(this, "Transaction",
+                                tr("Please enter a member ID."));
+        return;
+    }
 
     ui->lineEdit->setReadOnly(true); // disables editing member num while transaction in progress
 
     QItemSelectionModel *selection = ui->tableView->selectionModel();
     QAbstractItemModel *fromModel = ui->tableView->model();
-    QAbstractItemModel *toModel = ui->tableView_2->model();
     QModelIndexList list = selection->selectedIndexes();
+    QString q = list.at(0).data().toString();
 
-    const int newRow = fromModel->rowCount();
-    const int quantity = 1;
+    QAbstractItemModel *model = ui->tableView->model();
+    QSortFilterProxyModel *proxy = new QSortFilterProxyModel;
+    proxy->setSourceModel(model);
+    proxy->setFilterRegularExpression(q);
+    proxy->setFilterKeyColumn(0);
 
-    for (int i = 0; i < newRow; i++)
+    const int rows = fromModel->rowCount();
+    QVariant quantity = 1;
+
+    for (int i = 0; i < rows; i++)
     {
-        fromModel->index(i, 2, QModelIndex()).data().setValue(quantity);
-//        QVariant q = fromModel->data(list.at(i));
-//        QModelIndex index = toModel->index(newRow, i, QModelIndex());
-//        toModel->setData(index, q, Qt::EditRole);
+        fromModel->index(i, 2).data().setValue(quantity);
     }
     ui->tableView_2->setModel(fromModel);
-
     ui->tableView_2->hideColumn(3);
     ui->tableView_2->setColumnWidth(0, 275);
 
@@ -180,7 +182,8 @@ void MainWindow::on_pushButton_4_clicked() // checkout button
     QList<int> quantities;
 
     dbase.addToMemberTotal(memNum, price);
-    dbase.addToExecCashback(memNum, totalBeforeTax, EXEC_CASHBACK);
+    if (ui->tableWidget->item(0, 2)->text() == "Executive")
+        dbase.addToExecCashback(memNum, totalBeforeTax, EXEC_CASHBACK);
     dbase.addTransaction(currentDate, memNum, items, quantities);
 
     QAbstractItemModel *model = ui->tableView_3->model();
