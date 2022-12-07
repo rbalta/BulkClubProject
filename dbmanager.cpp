@@ -155,7 +155,7 @@ QString DbManager::calcDailyReportRev(QString purchase_date) {
     //set query
     QSqlQuery qry;
 
-    qry.prepare("SELECT SUM (((inventory.sales_price * 1.0775)) * sales.quantity_purchased) "
+    qry.prepare("SELECT ROUND(SUM (((inventory.sales_price * 1.0775)) * sales.quantity_purchased), 2) "
                 "FROM sales INNER JOIN inventory ON sales.item_name = inventory.item_name "
                 "WHERE sales.purchase_date = (:purchase_date)");
 
@@ -207,13 +207,11 @@ QSqlQuery DbManager::qryMemberReport(QString membership_number) {
     QSqlQuery qry;
 
     qry.prepare("SELECT sales.membership_number, inventory.item_name, inventory.sales_price, sales.quantity_purchased, "
-                "((inventory.sales_price * 1.0775) * sales.quantity_purchased) AS 'total_purchased' "
+                "ROUND((inventory.sales_price * 1.0775 * sales.quantity_purchased), 2) AS 'total_purchased' "
                 "FROM sales inner join inventory on sales.item_name = inventory.item_name "
                 "WHERE sales.membership_number = :membership_number");
     qry.bindValue(":membership_number",membership_number);
     qry.exec();
-
-    qDebug() << qry.value(0);
 
     return qry;
 }
@@ -222,9 +220,9 @@ QString DbManager::calcMemberReportRev(QString membership_number) {
     //set query
     QSqlQuery qry;
 
-    qry.prepare("SELECT (SUM ((inventory.sales_price * 1.0775) * sales.quantity_purchased)) "
-                "FROM sales INNER JOIN inventory ON sales.item_name = inventory.item_name "
-                "WHERE sales.membership_number = '12345'");
+    qry.prepare("SELECT ROUND(SUM (inventory.sales_price * 1.0775 * sales.quantity_purchased), 2) "
+                "FROM sales inner join inventory on sales.item_name = inventory.item_name "
+                "WHERE sales.membership_number = :membership_number");
     qry.bindValue(":membership_number",membership_number);
     qry.exec();
     qry.next();
@@ -241,7 +239,8 @@ QSqlQuery DbManager::qryItemReport(QString item_name) {
     //set query
     QSqlQuery qry;
 
-    qry.prepare("SELECT inventory.item_name, sales.quantity_purchased, inventory.sales_price, (sales.quantity_purchased * inventory.sales_price) AS 'total_price' "
+    qry.prepare("SELECT inventory.item_name, sales.quantity_purchased, inventory.sales_price, "
+                "(sales.quantity_purchased * inventory.sales_price) AS 'total_price' "
                 "FROM sales inner join inventory on sales.item_name = inventory.item_name "
                 "WHERE sales.item_name = (:item_name)");
 
@@ -258,9 +257,9 @@ QString DbManager::qryItemRevenue(QString item_name) {
     //set query
     QSqlQuery qry;
 
-    qry.prepare("SELECT SUM (inventory.sales_price * sales.quantity_purchased) AS 'total_spent' "
-                "FROM sales INNER JOIN inventory ON sales.item_name = inventory.item_name "
-                "WHERE sales.membership_number = :membership_number");
+    qry.prepare("SELECT ROUND(SUM (sales.quantity_purchased * inventory.sales_price), 2) "
+                "FROM sales inner join inventory on sales.item_name = inventory.item_name "
+                "WHERE sales.item_name = (:item_name)");
 
     qry.bindValue(":item_name",item_name);
     qry.exec();
@@ -272,17 +271,16 @@ QString DbManager::qryItemRevenue(QString item_name) {
 // A store manager should be able to display the rebate of all the
 // Executive members sorted by membership number. Rebates are
 // based on purchases before tax.
+QSqlQuery DbManager::qryRebate() {
+    //set query
+    QSqlQuery qry;
+    qry.prepare("SELECT member_name, membership_number, membership_type, ROUND(((total_spent + 120) * 0.02), 2) as Rebate "
+                "FROM members "
+                "WHERE members.membership_type = 'Executive' ");
+    qry.exec();
 
-
-
-
-
-
-
-
-
-
-
+    return qry;
+}
 
 // A store manager should be able to enter a month and obtain a
 // display of all members whose memberships expire that month as

@@ -37,6 +37,7 @@ public:
     QString calcMemberReportRev(QString membership_number);
     QSqlQuery qryItemReport(QString item_name);
     QString qryItemRevenue(QString item_name);
+    QSqlQuery qryRebate();
     QSqlQuery qryMemberExp(QString membership_expiration);
 
 

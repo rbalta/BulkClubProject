@@ -33,7 +33,7 @@ void AdminWindow::on_pushButton_4_clicked()
 
 void AdminWindow::on_pushButton_9_clicked() // load button for items
 {
-    DbManager db("C:/Users/bounc/Documents/GitHub/BulkClubProject/bulkclubdb.db");
+    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery("select * from inventory");
     ui->tableView_3->setModel(model);
@@ -43,7 +43,7 @@ void AdminWindow::on_pushButton_9_clicked() // load button for items
 
 void AdminWindow::on_pushButton_10_clicked() // load members
 {
-    DbManager db("C:/Users/bounc/Documents/GitHub/BulkClubProject/bulkclubdb.db");
+    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery("select * from members");
     ui->tableView->setModel(model);
@@ -96,7 +96,7 @@ void AdminWindow::on_pushButton_2_clicked() // delete member
 
 void AdminWindow::on_pushButton_3_clicked() //load executives that could be upgraded
 {
-    DbManager db("C:/Users/bounc/Documents/GitHub/BulkClubProject/bulkclubdb.db");
+    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
     QSqlQueryModel *model = new QSqlQueryModel();
     model->setQuery("select member_name, membership_number, membership_type, total_spent from members where total_spent * 0.02 < 120.00 and membership_type = 'Executive'");
     ui->tableView_2->setModel(model);
@@ -113,7 +113,7 @@ void AdminWindow::on_pushButton_5_clicked() // change membership type
 
 void AdminWindow::on_pushButton_11_clicked() // loads regulars that could  be upgraded
 {
-    DbManager db("C:/Users/bounc/Documents/GitHub/BulkClubProject/bulkclubdb.db");
+    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
     QSqlQueryModel *model = new QSqlQueryModel();
     model->setQuery("select member_name, membership_number, membership_type, total_spent from members where total_spent * 0.02 > 55.00 and membership_type = 'Regular'");
     ui->tableView_2->setModel(model);

@@ -58,6 +58,8 @@ void ManagerWindow::on_pushButton_8_clicked() {
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery(datab.qryMemberReport(membership_number));
     ui->tableView_10->setModel(model);
+
+    ui->textBrowser_5->setText(datab.calcMemberReportRev(membership_number));
 }
 
 // A store manager should be able to display the quantity of each item
@@ -80,6 +82,15 @@ void ManagerWindow::on_pushButton_2_clicked() {
 // A store manager should be able to display the rebate of all the
 // Executive members sorted by membership number. Rebates are
 // based on purchases before tax.
+void ManagerWindow::on_pushButton_3_clicked() {
+    //read from text editor
+    QString membership_expiration = ui->lineEdit_4->text();
+
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery(datab.qryRebate());
+
+    ui->tableView_4->setModel(model);
+}
 
 // A store manager should be able to enter a month and obtain a
 // display of all members whose memberships expire that month as
