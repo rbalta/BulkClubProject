@@ -6,6 +6,7 @@
 DbManager dbase("C:/Users/13109/Desktop/database/bulkclubdb.db");
 const double SALES_TAX = .0775;
 const double EXEC_CASHBACK = 0.02;
+QStringList selectedItems;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -94,18 +95,21 @@ void MainWindow::updateTransactionTotals()
 // updates transaction totals for when transaction table changes
 {
     if (ui->tableView_2->model() == NULL)
+    {
+        ui->tableWidget->clearContents();
         return;
+    }
 
-    double price = 0;
-    int quantity = 0;
-    double totalBeforeTax = 0;
-    double taxAmount = 0;
+    float price = 0;
+    // int quantity = 0;
+    float totalBeforeTax = 0;
+    float taxAmount = 0;
 
     for (int i = 0; i < ui->tableView_2->model()->rowCount(); i++)
     {
-       quantity = ui->tableView_2->model()->index(i,2).data().toInt();
-       price = ui->tableView_2->model()->index(i,1).data().toDouble();
-       totalBeforeTax += (quantity * price);
+       // quantity = ui->tableView_2->model()->index(i,2).data().toInt();
+       price = ui->tableView_2->model()->index(i,1).data().toFloat();
+       totalBeforeTax += (price);
 
     }
     taxAmount = totalBeforeTax * SALES_TAX;
@@ -124,50 +128,16 @@ void MainWindow::updateTransactionTotals()
     ui->tableWidget->setItem(2, 0, ptr3);
 }
 
-void MainWindow::copySelection()
-{
-    const QAbstractItemModel * fromModel = ui->tableView->model();
-          QAbstractItemModel * toModel = ui->tableView_2->model();
 
-          toModel->removeRows(0, toModel->rowCount());
-          toModel->removeColumns(0, toModel->columnCount());
+//void MainWindow::on_fruitButton_clicked() // button filters for inventory NOT WORKING YET
+//{
+//    ui->tableView->show();
+//    QSortFilterProxyModel *filter = new QSortFilterProxyModel;
+//    filter->setSourceModel(ui->tableView->model());
 
-          QItemSelectionModel * selectionModel = ui->tableView->selectionModel();
-
-          if(selectionModel->hasSelection())
-          {
-              toModel->insertColumns(0, fromModel->columnCount());
-
-              QList<int> rows;
-
-              foreach(const QModelIndex & modelIndex, selectionModel->selectedIndexes())
-              {
-                  if(!rows.contains(modelIndex.row()))
-                  {
-                      rows.append(modelIndex.row());
-                      toModel->insertRow(toModel->rowCount());
-                  }
-
-                  const int row = rows.indexOf(modelIndex.row());
-                  const int col = modelIndex.column();
-
-                  const QModelIndex index = toModel->index(row, col);
-
-                  for(int role = 0; role < Qt::UserRole; ++role)
-                      toModel->setData(index, modelIndex.data(role), role);
-              }
-          }
-}
-
-void MainWindow::on_fruitButton_clicked() // button filters for inventory NOT WORKING YET
-{
-    ui->tableView->show();
-    QSortFilterProxyModel *filter = new QSortFilterProxyModel();
-    filter->setSourceModel(ui->tableView->model());
-    filter->setFilterKeyColumn(3);
-
-    filter->setFilterRegularExpression("fruit");
-}
+//    filter->setFilterRegularExpression("fruit");
+//    filter->setFilterKeyColumn(3);
+//}
 
 void MainWindow::on_tableView_doubleClicked() // adds items to transaction window
 {
@@ -182,21 +152,18 @@ void MainWindow::on_tableView_doubleClicked() // adds items to transaction windo
     ui->lineEdit->setReadOnly(true); // disables editing member num while transaction in progress
 
     QItemSelectionModel *selection = ui->tableView->selectionModel();
-    QAbstractItemModel *model = ui->tableView_2->model();
     QModelIndexList list = selection->selectedIndexes();
 
-    model->insertRow(0);
+    QString q = list.at(0).data().toString();
+    selectedItems.append(q);
 
-    for (int i = 0; i < list.size(); i++)
-    {
-        QVariant q = selection->model()->data(list.at(i)).toString();
-        model->setData(list.at(i), q , Qt::EditRole);
-    }
-    model->index(model->rowCount(), 2).data().setValue(1);
-    ui->tableView_2->hideColumn(3);
+    QSqlQueryModel *model = new QSqlQueryModel;
+    model->setQuery(dbase.pullSelectedInventory(selectedItems));
+
+    ui->tableView_2->setModel(model);
     ui->tableView_2->setColumnWidth(0, 275);
 
-    // updateTransactionTotals(); // runs the update function for cash totals
+    updateTransactionTotals(); // runs the update function for cash totals
 }
 
 void MainWindow::on_pushButton_4_clicked() // checkout button
@@ -207,15 +174,27 @@ void MainWindow::on_pushButton_4_clicked() // checkout button
     QDate currentDate = ui->dateTimeEdit->date();
     QStringList items;
     QList<int> quantities;
+    QAbstractItemModel *model = ui->tableView_2->model();
+
+    for (int i = 0; i < model->rowCount(); i++)
+    {
+        items.append(model->index(i, 0).data().toString());
+        quantities.append(model->index(i, 2).data().toInt());
+    }
 
     dbase.addToMemberTotal(memNum, price);
-    dbase.addToExecCashback(memNum, totalBeforeTax, EXEC_CASHBACK);
-    dbase.addTransaction(currentDate, memNum, items, quantities);
+    if (ui->memDisplay->model()->index(0, 2).data().toString() == "Executive")
+        dbase.addToExecCashback(memNum, totalBeforeTax, EXEC_CASHBACK);
+    dbase.addTransaction(currentDate.toString(), memNum, items, quantities);
 
-    QAbstractItemModel *model = ui->tableView_3->model();
-    ui->tableView_2->setModel(model);
+    QMessageBox::information(this, "Transaction",
+                             tr("Checkout complete!"));
+
+    QAbstractItemModel *blankModel = ui->tableView_3->model();
+    ui->tableView_2->setModel(blankModel);
     updateTransactionTotals();
     ui->lineEdit->setReadOnly(false); // enables editing after transaction done
+    ui->lineEdit->clear();
 }
 
 void MainWindow::on_pushButton_6_clicked() // delete cart button
@@ -235,18 +214,3 @@ void MainWindow::on_pushButton_6_clicked() // delete cart button
     else
         return;
 }
-
-void MainWindow::on_pushButton_5_clicked() // edit button NOT WORKING YET
-{
-    if (ui->tableView_2->model() == NULL)
-        return;
-
-    for (int i = 0; i < ui->tableView_2->model()->rowCount(); i++)
-    {
-        // QItemDelegate *item = new QItemDelegate;
-        // QStyleOptionMenuItem style;
-        // item->createEditor(ui->tableView_2, );
-        // ui->tableView_2->setItemDelegateForColumn(2, item);
-    }
-}
-

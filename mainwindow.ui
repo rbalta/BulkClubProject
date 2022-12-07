@@ -324,23 +324,6 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Edit Items</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="pushButton_6">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
@@ -375,7 +358,7 @@ color: rgb(255, 255, 255);</string>
      <item row="1" column="0" colspan="2">
       <widget class="QPushButton" name="pushButton_3">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -639,6 +622,24 @@ color: rgb(0, 0, 0);
       <width>20</width>
       <height>20</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>220</y>
+      <width>531</width>
+      <height>491</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 0, 0);
+font: 12pt &quot;Segoe UI&quot;;
+background-color: rgba(255,255, 255, 100);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
   </widget>

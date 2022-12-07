@@ -3,8 +3,7 @@
 
 #include <QMainWindow>
 #include <QAbstractItemModel>
-#include <QItemDelegate>
-#include <QStyleOptionViewItem>
+#include <QTableView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,18 +22,13 @@ private slots:
     void on_pushButton_3_clicked();
 
     void updateTransactionTotals();
-    void copySelection();
-
     void on_pushButton_4_clicked();
     void keyPressEvent(QKeyEvent* memLookup);
 
-    void on_fruitButton_clicked();
+//    void on_fruitButton_clicked();
     void on_tableView_doubleClicked();
 
-    void on_pushButton_5_clicked();
     void on_pushButton_6_clicked();
-
-
 
 private:
     Ui::MainWindow *ui;
