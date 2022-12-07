@@ -3,9 +3,6 @@
 
 #include <QMainWindow>
 #include <QAbstractItemModel>
-#include <QItemDelegate>
-#include <QStyleOptionViewItem>
-#include <QStandardItemModel>
 #include <QTableView>
 
 QT_BEGIN_NAMESPACE
@@ -29,7 +26,7 @@ private slots:
     void on_pushButton_4_clicked();
     void keyPressEvent(QKeyEvent* memLookup);
 
-    void on_fruitButton_clicked();
+//    void on_fruitButton_clicked();
     void on_tableView_doubleClicked();
 
     void on_pushButton_6_clicked();

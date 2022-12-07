@@ -6,6 +6,7 @@
 DbManager dbase("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
 const float SALES_TAX = .0775;
 const float EXEC_CASHBACK = 0.02;
+QStringList selectedItems;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -94,7 +95,10 @@ void MainWindow::updateTransactionTotals()
 // updates transaction totals for when transaction table changes
 {
     if (ui->tableView_2->model() == NULL)
+    {
+        ui->tableWidget->clearContents();
         return;
+    }
 
     float price = 0;
     // int quantity = 0;
@@ -125,15 +129,15 @@ void MainWindow::updateTransactionTotals()
 }
 
 
-void MainWindow::on_fruitButton_clicked() // button filters for inventory NOT WORKING YET
-{
-    ui->tableView->show();
-    QSortFilterProxyModel *filter = new QSortFilterProxyModel;
-    filter->setSourceModel(ui->tableView->model());
+//void MainWindow::on_fruitButton_clicked() // button filters for inventory NOT WORKING YET
+//{
+//    ui->tableView->show();
+//    QSortFilterProxyModel *filter = new QSortFilterProxyModel;
+//    filter->setSourceModel(ui->tableView->model());
 
-    filter->setFilterRegularExpression("fruit");
-    filter->setFilterKeyColumn(3);
-}
+//    filter->setFilterRegularExpression("fruit");
+//    filter->setFilterKeyColumn(3);
+//}
 
 void MainWindow::on_tableView_doubleClicked() // adds items to transaction window
 {
@@ -148,25 +152,15 @@ void MainWindow::on_tableView_doubleClicked() // adds items to transaction windo
     ui->lineEdit->setReadOnly(true); // disables editing member num while transaction in progress
 
     QItemSelectionModel *selection = ui->tableView->selectionModel();
-    QAbstractItemModel *fromModel = ui->tableView->model();
     QModelIndexList list = selection->selectedIndexes();
+
     QString q = list.at(0).data().toString();
+    selectedItems.append(q);
 
-    QAbstractItemModel *model = ui->tableView->model();
-    QSortFilterProxyModel *proxy = new QSortFilterProxyModel;
-    proxy->setSourceModel(model);
-    proxy->setFilterRegularExpression(q);
-    proxy->setFilterKeyColumn(0);
+    QSqlQueryModel *model = new QSqlQueryModel;
+    model->setQuery(dbase.pullSelectedInventory(selectedItems));
 
-    const int rows = fromModel->rowCount();
-    QVariant quantity = 1;
-
-    for (int i = 0; i < rows; i++)
-    {
-        fromModel->index(i, 2).data().setValue(quantity);
-    }
-    ui->tableView_2->setModel(fromModel);
-    ui->tableView_2->hideColumn(3);
+    ui->tableView_2->setModel(model);
     ui->tableView_2->setColumnWidth(0, 275);
 
     updateTransactionTotals(); // runs the update function for cash totals
@@ -180,16 +174,27 @@ void MainWindow::on_pushButton_4_clicked() // checkout button
     QDate currentDate = ui->dateTimeEdit->date();
     QStringList items;
     QList<int> quantities;
+    QAbstractItemModel *model = ui->tableView_2->model();
+
+    for (int i = 0; i < model->rowCount(); i++)
+    {
+        items.append(model->index(i, 0).data().toString());
+        quantities.append(model->index(i, 2).data().toInt());
+    }
 
     dbase.addToMemberTotal(memNum, price);
-    if (ui->tableWidget->item(0, 2)->text() == "Executive")
+    if (ui->memDisplay->model()->index(0, 2).data().toString() == "Executive")
         dbase.addToExecCashback(memNum, totalBeforeTax, EXEC_CASHBACK);
-    dbase.addTransaction(currentDate, memNum, items, quantities);
+    dbase.addTransaction(currentDate.toString(), memNum, items, quantities);
 
-    QAbstractItemModel *model = ui->tableView_3->model();
-    ui->tableView_2->setModel(model);
+    QMessageBox::information(this, "Transaction",
+                             tr("Checkout complete!"));
+
+    QAbstractItemModel *blankModel = ui->tableView_3->model();
+    ui->tableView_2->setModel(blankModel);
     updateTransactionTotals();
     ui->lineEdit->setReadOnly(false); // enables editing after transaction done
+    ui->lineEdit->clear();
 }
 
 void MainWindow::on_pushButton_6_clicked() // delete cart button

@@ -70,173 +70,13 @@ color: rgb(255, 255, 255);</string>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>60</y>
-      <width>531</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <item row="7" column="0">
-      <widget class="QPushButton" name="houseButton">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Household</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QPushButton" name="dvdButton">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>DVD</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QPushButton" name="miscButton">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Misc</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QPushButton" name="bakeButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Bakery</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="meatButton">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Meat</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="vegButton">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Vegetable</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QPushButton" name="dairyButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Dairy</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0" colspan="2">
-      <widget class="QPushButton" name="allButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>All</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QPushButton" name="officeButton">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Office</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QPushButton" name="drinkButton">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Drink</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="fruitButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Fruit</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
       <x>600</x>
-      <y>260</y>
+      <y>100</y>
       <width>531</width>
-      <height>571</height>
+      <height>731</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -484,7 +324,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <property name="geometry">
      <rect>
       <x>600</x>
-      <y>220</y>
+      <y>60</y>
       <width>531</width>
       <height>41</height>
      </rect>

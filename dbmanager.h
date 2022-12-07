@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QtSql>
+#include <QMessageBox>
+#include <QSqlQueryModel>
 
 class DbManager
 {
@@ -19,9 +21,11 @@ public:
     QSqlTableModel* pullInventoryItems();
     bool memberExists(int memNum);
     QSqlQuery pullMemberInfo(int memNum);
-    void addTransaction(QDate date, int memNum, QStringList items, QList<int> quantities);
+    QSqlQuery pullSelectedInventory(QStringList items);
+    void addTransaction(QString date, int memNum, QStringList items, QList<int> quantities);
     void addToMemberTotal(int memNum, const double price);
     void addToExecCashback(int memNum, const double totalBeforeTax, const double cashbackPercent);
+
 
     // AdminWindow functions
     void deleteItem(QString itemname);
