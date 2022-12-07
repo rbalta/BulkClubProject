@@ -3,9 +3,9 @@
 #include "loginwindow.h"
 #include "dbmanager.h"
 
-DbManager dbase("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
-const float SALES_TAX = .0775;
-const float EXEC_CASHBACK = 0.02;
+DbManager dbase("C:/Users/13109/Desktop/database/bulkclubdb.db");
+const double SALES_TAX = .0775;
+const double EXEC_CASHBACK = 0.02;
 QStringList selectedItems;
 
 MainWindow::MainWindow(QWidget *parent)

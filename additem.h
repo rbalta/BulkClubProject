@@ -7,8 +7,7 @@ namespace Ui {
 class addItem;
 }
 
-class addItem : public QDialog
-{
+class addItem : public QDialog {
     Q_OBJECT
 
 public:

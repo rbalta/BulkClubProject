@@ -6,10 +6,8 @@
 #include <QMessageBox>
 #include <QSqlQueryModel>
 
-class DbManager
-{
+class DbManager {
 public:
-
     DbManager(const QString& path);
 
     // LoginWindow functions
@@ -35,13 +33,18 @@ public:
     void addMember(QString member_name, QString membership_number, QString membership_type, QString membership_expiration);
     void changeMembership(QString membership_number, QString membership_type);
     // ManagerWindow functions
-    void displaySalesReport(int dayGiven);
-    void displayTotalPurchases();
-    void displayQuantity();
-    void displayRebate();
-    void displayMembership(int month);
-    void displayItemQuant(QString itemName);
-    void displayMemberPurchases(int memNum, QString memName);
+    QSqlQuery qryDailyReport(QString purchase_date);
+    QString calcDailyReportRev(QString purchase_date);
+    QString calcDailyReportExecutive(QString purchase_date);
+    QString calcDailyReportRegular(QString purchase_date);
+    QSqlQuery qryMemberReport(QString membership_number);
+    QString calcMemberReportRev(QString membership_number);
+    QSqlQuery qryItemReport(QString item_name);
+    QString qryItemRevenue(QString item_name);
+    QSqlQuery qryRebate();
+    QSqlQuery qryMemberExp(QString membership_expiration);
+
+
 private:
     QSqlDatabase main_db;
 };

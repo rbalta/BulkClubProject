@@ -5,7 +5,7 @@
 #include "managerwindow.h"
 #include "dbmanager.h"
 
-DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
+DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
 
 LoginWindow::LoginWindow(QWidget *parent) :
     QDialog(parent),
