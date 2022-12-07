@@ -203,7 +203,8 @@ QSqlQuery DbManager::pullMemberInfo(int memNum)
 void DbManager::addTransaction(QDate date, int memNum, QStringList items, QList<int> quantities)
 {
     QSqlQuery addTransaction;
-    addTransaction.prepare("INSERT INTO sales VALUES "); // finish this
+    addTransaction.prepare("INSERT INTO sales (purchase_date, membership_number, item_name, quantity_purchased) "
+    "VALUES (:date, :memNum, :item, :quantity)");
 
     for (int i = 0; i < items.size(); i++)
     {

@@ -1,5 +1,4 @@
 #include "loginwindow.h"
-#include "adminwindow.h"
 
 #include <QApplication>
 
