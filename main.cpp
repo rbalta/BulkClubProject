@@ -9,14 +9,14 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-//    LoginWindow login;
-//    login.show();
+    LoginWindow login;
+    login.show();
 
 //    MainWindow main;
 //    main.show();
 
-    ManagerWindow manager;
-    manager.show();
+//    ManagerWindow manager;
+//    manager.show();
 
     return a.exec();
 }
