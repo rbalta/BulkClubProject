@@ -111,7 +111,7 @@ void DbManager::deleteMember(QString membership_number)
 void DbManager::changeMembership(QString membership_number, QString membership_type)
 {
     QSqlQuery qry;
-    qry.prepare("update members set membership_type='"+membership_type+"' where membership_number= '"+membership_number+"'");
+    qry.prepare("update members set membership_type='"+membership_type+"' where membership_number='"+membership_number+"'");
     if (qry.exec())
     {
         QMessageBox msg;
@@ -126,7 +126,6 @@ void DbManager::changeMembership(QString membership_number, QString membership_t
         msg.exec();
     }
 }
-
 
 // ManagerWindow functions
 
