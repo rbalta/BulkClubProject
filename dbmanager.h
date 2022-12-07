@@ -27,7 +27,7 @@ public:
     void addItem(QString item_name, QString sales_price);
     void deleteMember(QString memberNum);
     void addMember(QString member_name, QString membership_number, QString membership_type, QString membership_expiration);
-
+    void changeMembership(QString membership_number, QString membership_type);
     // ManagerWindow functions
     QSqlQuery qryDailyReport(QString purchase_date);
     QString calcDailyReportRev(QString purchase_date);

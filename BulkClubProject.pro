@@ -13,6 +13,7 @@ SOURCES += \
     additem.cpp \
     addmember.cpp \
     adminwindow.cpp \
+    changemember.cpp \
     dbmanager.cpp \
     deleteitem.cpp \
     deletemember.cpp \
@@ -26,6 +27,7 @@ HEADERS += \
     additem.h \
     addmember.h \
     adminwindow.h \
+    changemember.h \
     dbmanager.h \
     deleteitem.h \
     deletemember.h \
@@ -38,6 +40,7 @@ FORMS += \
     additem.ui \
     addmember.ui \
     adminwindow.ui \
+    changemember.ui \
     deleteitem.ui \
     deletemember.ui \
     edititem.ui \

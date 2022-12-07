@@ -7,7 +7,7 @@
 #include "edititem.h"
 #include "deleteitem.h"
 #include "deletemember.h"
-
+#include "changemember.h"
 AdminWindow::AdminWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AdminWindow)
@@ -20,7 +20,7 @@ AdminWindow::~AdminWindow()
     delete ui;
 }
 
-void AdminWindow::on_pushButton_3_clicked()
+void AdminWindow::on_pushButton_4_clicked()
 {
     LoginWindow *login = new LoginWindow;
     this->close();
@@ -91,5 +91,31 @@ void AdminWindow::on_pushButton_2_clicked() // delete member
     deleteMember dialog;
     dialog.setModal(true);
     dialog.exec();
+}
+
+
+void AdminWindow::on_pushButton_3_clicked() //load executives that could be upgraded
+{
+    DbManager db("C:/Users/bounc/Documents/GitHub/BulkClubProject/bulkclubdb.db");
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery("select member_name, membership_number, membership_type, total_spent from members where total_spent * 0.02 < 120.00 and membership_type = 'Executive'");
+    ui->tableView_2->setModel(model);
+}
+
+
+void AdminWindow::on_pushButton_5_clicked() // change membership type
+{
+    changemember dialog;
+    dialog.setModal(true);
+    dialog.exec();
+}
+
+
+void AdminWindow::on_pushButton_11_clicked() // loads regulars that could  be upgraded
+{
+    DbManager db("C:/Users/bounc/Documents/GitHub/BulkClubProject/bulkclubdb.db");
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery("select member_name, membership_number, membership_type, total_spent from members where total_spent * 0.02 > 55.00 and membership_type = 'Regular'");
+    ui->tableView_2->setModel(model);
 }
 

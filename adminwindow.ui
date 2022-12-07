@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>959</width>
-    <height>562</height>
+    <width>1371</width>
+    <height>1044</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,9 @@
   <widget class="QTextBrowser" name="textBrowser">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>0</x>
      <y>10</y>
-     <width>831</width>
+     <width>1371</width>
      <height>51</height>
     </rect>
    </property>
@@ -31,27 +31,11 @@ hr { height: 1px; border-width: 0; }
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Admin Dashboard&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QPushButton" name="pushButton_4">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>500</y>
-     <width>171</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
-   </property>
-   <property name="centerButtons">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_3">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>500</y>
+     <x>1160</x>
+     <y>890</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -65,12 +49,12 @@ hr { height: 1px; border-width: 0; }
     <rect>
      <x>90</x>
      <y>70</y>
-     <width>751</width>
-     <height>421</height>
+     <width>1251</width>
+     <height>811</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_3">
     <attribute name="title">
@@ -143,8 +127,51 @@ hr { height: 1px; border-width: 0; }
    </widget>
    <widget class="QWidget" name="tab_5">
     <attribute name="title">
-     <string>Page</string>
+     <string>Rebate</string>
     </attribute>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>670</y>
+       <width>121</width>
+       <height>86</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="text">
+         <string>Load Executives</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_11">
+        <property name="text">
+         <string>Load Regulars</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="text">
+         <string>Change Membership</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QTableView" name="tableView_2">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>21</y>
+       <width>1211</width>
+       <height>641</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
