@@ -1,5 +1,4 @@
 #include "dbmanager.h"
-#include <QMessageBox>
 
 DbManager::DbManager(const QString& path)
 {
@@ -200,18 +199,18 @@ QSqlQuery DbManager::pullMemberInfo(int memNum)
     return memInfo;
 }
 
-void DbManager::addTransaction(QDate date, int memNum, QStringList items, QList<int> quantities)
+void DbManager::addTransaction(QString date, int memNum, QStringList items, QList<int> quantities)
 {
     QSqlQuery addTransaction;
-    addTransaction.prepare("INSERT INTO sales (purchase_date, membership_number, item_name, quantity_purchased) "
-    "VALUES (:date, :memNum, :item, :quantity)");
 
     for (int i = 0; i < items.size(); i++)
     {
+    addTransaction.prepare("INSERT INTO sales (purchase_date, membership_number, item_name, quantity_purchased) "
+                           "VALUES (:date, :memNum, :item, :quantity)");
     addTransaction.bindValue(":date", date);
     addTransaction.bindValue(":memNum", memNum);
-    addTransaction.bindValue(":item", items.at(i));
-    addTransaction.bindValue(":quantity", quantities.at(i));
+    addTransaction.bindValue(":item", items[i]);
+    addTransaction.bindValue(":quantity", quantities[i]);
     addTransaction.exec();
     }
 }
@@ -233,4 +232,18 @@ void DbManager::addToExecCashback(int memNum, const double totalBeforeTax, const
     addCashback.bindValue(":cashback", cashback);
     addCashback.bindValue(":memNum", memNum);
     addCashback.exec();
+}
+
+QSqlQuery DbManager::pullSelectedInventory(QStringList items)
+{
+    QSqlQuery pullItem;
+    QString joinedItems = items.join("', '");
+
+    pullItem.prepare("SELECT item_name AS 'Item', sales_price AS 'Price', quantity AS 'Quantity' FROM inventory WHERE item_name IN (:items)");
+    pullItem.bindValue(":items", joinedItems);
+    pullItem.exec();
+
+    qDebug() << joinedItems;
+
+    return pullItem;
 }
