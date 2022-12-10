@@ -34,13 +34,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     // used as a blank table model
     ui->tableView_3->hide();
-
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 
 void MainWindow::on_pushButton_clicked()
 {
@@ -74,9 +74,6 @@ void MainWindow::on_pushButton_3_clicked() // check member number and show info 
         ui->memDisplay->setModel(model);
         ui->memDisplay->setColumnWidth(0, 275);
         ui->memDisplay->setRowHeight(0, 75);
-        ui->memDisplay->hideColumn(3);
-        ui->memDisplay->hideColumn(4);
-        ui->memDisplay->hideColumn(5);
     }
     else
     {
@@ -159,6 +156,9 @@ void MainWindow::on_tableView_doubleClicked() // adds items to transaction windo
 void MainWindow::on_pushButton_4_clicked() // checkout button
 {
     DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
+
+    updateTransactionTotals();
+
     int memNum = ui->lineEdit->text().toInt();
     double price = ui->tableWidget->item(0, 0)->text().toDouble();
     double totalBeforeTax = ui->tableWidget->item(0, 0)->text().toDouble();
@@ -198,8 +198,10 @@ void MainWindow::on_pushButton_6_clicked() // delete cart button
     if (deleteConfirm == QMessageBox::Yes)
     {
         QAbstractItemModel *model = ui->tableView_3->model();
+
         ui->tableView_2->setModel(model);
         ui->tableWidget->clearContents();
+        selectedItems.clear();
         ui->lineEdit->setReadOnly(false);
     }
     else

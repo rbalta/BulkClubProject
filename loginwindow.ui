@@ -83,6 +83,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <height>161</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::TabFocus</enum>
+   </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
    </property>
@@ -181,5 +184,22 @@ color: rgb(255, 255, 255);</string>
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>lineEdit_2</sender>
+   <signal>returnPressed()</signal>
+   <receiver>pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>375</x>
+     <y>173</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>385</x>
+     <y>219</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
