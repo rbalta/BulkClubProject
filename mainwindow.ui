@@ -164,23 +164,6 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(72, 149, 208);
-color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>Edit Quantity</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="pushButton_6">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
@@ -205,7 +188,7 @@ color: rgb(255, 255, 255);</string>
       <x>40</x>
       <y>60</y>
       <width>531</width>
-      <height>81</height>
+      <height>71</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_3">
@@ -232,7 +215,7 @@ color: rgb(255, 255, 255);</string>
      <item row="0" column="0">
       <widget class="QTextBrowser" name="textBrowser">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -256,7 +239,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <item row="0" column="1">
       <widget class="QLineEdit" name="lineEdit">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -309,9 +292,9 @@ background-color: rgba(255, 255, 255, 200);</string>
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>140</y>
+      <y>130</y>
       <width>531</width>
-      <height>81</height>
+      <height>91</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -469,7 +452,7 @@ background-color: rgba(255,255, 255, 100);</string>
      <enum>QFrame::NoFrame</enum>
     </property>
     <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
+     <set>QAbstractItemView::DoubleClicked</set>
     </property>
    </widget>
   </widget>

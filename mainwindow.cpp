@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // used as a blank table model
     ui->tableView_3->hide();
+
 }
 
 MainWindow::~MainWindow()
@@ -101,19 +102,18 @@ void MainWindow::updateTransactionTotals()
         return;
     }
 
-    float price = 0;
-    // int quantity = 0;
-    float totalBeforeTax = 0;
-    float taxAmount = 0;
+    double price = 0;
+    int quantity = 0;
+    double totalBeforeTax = 0;
+    double taxAmount = 0;
 
     for (int i = 0; i < ui->tableView_2->model()->rowCount(); i++)
     {
-       // quantity = ui->tableView_2->model()->index(i,2).data().toInt();
-       price = ui->tableView_2->model()->index(i,1).data().toFloat();
-       totalBeforeTax += (price);
-
+       quantity = ui->tableView_2->model()->index(i,2).data().toInt();
+       price = ui->tableView_2->model()->index(i,1).data().toDouble();
+       totalBeforeTax += (price * quantity);
     }
-    taxAmount = totalBeforeTax * SALES_TAX;
+    taxAmount = QString::number((totalBeforeTax * SALES_TAX), 'f', 2).toDouble();
 
     QTableWidgetItem *ptr = new QTableWidgetItem;
     QTableWidgetItem *ptr2 = new QTableWidgetItem;
@@ -162,7 +162,7 @@ void MainWindow::on_tableView_doubleClicked() // adds items to transaction windo
 
     ui->tableView_2->setModel(db.pullSelectedInventory(selectedItems));
     ui->tableView_2->show();
-    ui->tableView_2->setColumnWidth(0, 275);
+    ui->tableView_2->setColumnWidth(0, 250);
 
     updateTransactionTotals(); // runs the update function for cash totals
 }
@@ -216,9 +216,3 @@ void MainWindow::on_pushButton_6_clicked() // delete cart button
     else
         return;
 }
-
-void MainWindow::on_pushButton_5_clicked()
-{
-    ui->tableView_2;
-}
-

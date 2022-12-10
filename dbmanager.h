@@ -5,8 +5,6 @@
 #include <QtSql>
 #include <QMessageBox>
 #include <QStandardItem>
-#include <QSqlQuery>
-#include <QSqlQueryModel>
 
 class DbManager
 {

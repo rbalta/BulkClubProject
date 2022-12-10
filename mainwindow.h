@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QAbstractItemModel>
 #include <QTableView>
+#include <QItemDelegate>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,6 +33,8 @@ private slots:
     void on_pushButton_6_clicked();
 
     void on_pushButton_5_clicked();
+
+    void on_tableView_2_doubleClicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;

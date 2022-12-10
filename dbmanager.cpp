@@ -260,20 +260,20 @@ QStandardItemModel* DbManager::pullSelectedInventory(QStringList items)
 
     while (pullItem.next())
     {
-        QList<QStandardItem*> NewRow;
+        QList<QStandardItem*> newRow;
         item = pullItem.value(0).toString();
 
         QStandardItem *newColumn = new QStandardItem(item);
-        NewRow.append(newColumn);
+        newRow.append(newColumn);
 
         price = pullItem.value(1).toString();
         newColumn = new QStandardItem(price);
-        NewRow.append(newColumn);
+        newRow.append(newColumn);
 
         newColumn = new QStandardItem("1");
-        NewRow.append(newColumn);
+        newRow.append(newColumn);
 
-        model->appendRow(NewRow);
+        model->appendRow(newRow);
     }
 
     return model;
