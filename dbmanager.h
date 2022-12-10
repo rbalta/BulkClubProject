@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QtSql>
 #include <QMessageBox>
+#include <QStandardItem>
+#include <QSqlQuery>
 #include <QSqlQueryModel>
 
 class DbManager
@@ -11,6 +13,7 @@ class DbManager
 public:
 
     DbManager(const QString& path);
+    ~DbManager();
 
     // LoginWindow functions
     bool idMatch(QString id);
@@ -21,7 +24,7 @@ public:
     QSqlTableModel* pullInventoryItems();
     bool memberExists(int memNum);
     QSqlQuery pullMemberInfo(int memNum);
-    QSqlQuery pullSelectedInventory(QStringList items);
+    QStandardItemModel* pullSelectedInventory(QStringList items);
     void addTransaction(QString date, int memNum, QStringList items, QList<int> quantities);
     void addToMemberTotal(int memNum, const double price);
     void addToExecCashback(int memNum, const double totalBeforeTax, const double cashbackPercent);

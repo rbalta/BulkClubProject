@@ -164,6 +164,23 @@ color: rgb(255, 255, 255);</string>
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="pushButton_5">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(72, 149, 208);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Edit Quantity</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_6">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
@@ -360,9 +377,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>710</y>
+      <y>709</y>
       <width>531</width>
-      <height>120</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -450,6 +467,9 @@ background-color: rgba(255,255, 255, 100);</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
     </property>
    </widget>
   </widget>
