@@ -7,8 +7,7 @@ namespace Ui {
 class addmember;
 }
 
-class addmember : public QDialog
-{
+class addmember : public QDialog {
     Q_OBJECT
 
 public:
@@ -16,8 +15,6 @@ public:
     ~addmember();
 
 private slots:
-
-
     void on_pushButton_clicked();
 
 private:

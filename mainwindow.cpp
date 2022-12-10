@@ -3,8 +3,8 @@
 #include "loginwindow.h"
 #include "dbmanager.h"
 
-const float SALES_TAX = .0775;
-const float EXEC_CASHBACK = 0.02;
+const double SALES_TAX = .0775;
+const double EXEC_CASHBACK = 0.02;
 QStringList selectedItems;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -128,17 +128,6 @@ void MainWindow::updateTransactionTotals()
     ptr3->setData(Qt::EditRole, totalBeforeTax+taxAmount);
     ui->tableWidget->setItem(2, 0, ptr3);
 }
-
-
-//void MainWindow::on_fruitButton_clicked() // button filters for inventory NOT WORKING YET
-//{
-//    ui->tableView->show();
-//    QSortFilterProxyModel *filter = new QSortFilterProxyModel;
-//    filter->setSourceModel(ui->tableView->model());
-
-//    filter->setFilterRegularExpression("fruit");
-//    filter->setFilterKeyColumn(3);
-//}
 
 void MainWindow::on_tableView_doubleClicked() // adds items to transaction window
 {

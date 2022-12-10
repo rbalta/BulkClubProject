@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1371</width>
-    <height>1044</height>
+    <width>1270</width>
+    <height>634</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,8 +34,8 @@ hr { height: 1px; border-width: 0; }
   <widget class="QPushButton" name="pushButton_4">
    <property name="geometry">
     <rect>
-     <x>1160</x>
-     <y>890</y>
+     <x>990</x>
+     <y>590</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -49,12 +49,12 @@ hr { height: 1px; border-width: 0; }
     <rect>
      <x>90</x>
      <y>70</y>
-     <width>1251</width>
-     <height>811</height>
+     <width>1081</width>
+     <height>501</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_3">
     <attribute name="title">
@@ -129,13 +129,13 @@ hr { height: 1px; border-width: 0; }
     <attribute name="title">
      <string>Rebate</string>
     </attribute>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>570</x>
-       <y>670</y>
-       <width>121</width>
-       <height>86</height>
+       <x>450</x>
+       <y>350</y>
+       <width>148</width>
+       <height>103</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -167,8 +167,8 @@ hr { height: 1px; border-width: 0; }
       <rect>
        <x>15</x>
        <y>21</y>
-       <width>1211</width>
-       <height>641</height>
+       <width>1041</width>
+       <height>321</height>
       </rect>
      </property>
     </widget>
