@@ -5,8 +5,6 @@
 #include "managerwindow.h"
 #include "dbmanager.h"
 
-DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
-
 LoginWindow::LoginWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LoginWindow)
@@ -25,6 +23,7 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_pushButton_clicked() // Login button
 {
+    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
     QString username = ui->lineEdit->text();
     QString password = ui->lineEdit_2->text();
 

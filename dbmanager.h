@@ -4,11 +4,12 @@
 #include <QObject>
 #include <QtSql>
 #include <QMessageBox>
-#include <QSqlQueryModel>
+#include <QStandardItem>
 
 class DbManager {
 public:
     DbManager(const QString& path);
+    ~DbManager();
 
     // LoginWindow functions
     bool idMatch(QString id);
@@ -19,7 +20,7 @@ public:
     QSqlTableModel* pullInventoryItems();
     bool memberExists(int memNum);
     QSqlQuery pullMemberInfo(int memNum);
-    QSqlQuery pullSelectedInventory(QStringList items);
+    QStandardItemModel* pullSelectedInventory(QStringList items);
     void addTransaction(QString date, int memNum, QStringList items, QList<int> quantities);
     void addToMemberTotal(int memNum, const double price);
     void addToExecCashback(int memNum, const double totalBeforeTax, const double cashbackPercent);
@@ -32,6 +33,7 @@ public:
     void deleteMember(QString memberNum);
     void addMember(QString member_name, QString membership_number, QString membership_type, QString membership_expiration);
     void changeMembership(QString membership_number, QString membership_type);
+
     // ManagerWindow functions
     QSqlQuery qryDailyReport(QString purchase_date);
     QString calcDailyReportRev(QString purchase_date);

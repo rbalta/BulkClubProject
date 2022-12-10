@@ -9,7 +9,14 @@ DbManager::DbManager(const QString& path)
         qDebug() << "Database connected.";
     else
         qDebug() << "Error: Database not found.";
+}
 
+DbManager::~DbManager()
+{
+    if (main_db.isOpen())
+    {
+        main_db.close();
+    }
 }
 
 // AdminWindow functions
@@ -413,16 +420,40 @@ void DbManager::addToExecCashback(int memNum, const double totalBeforeTax, const
     addCashback.exec();
 }
 
-QSqlQuery DbManager::pullSelectedInventory(QStringList items)
+QStandardItemModel* DbManager::pullSelectedInventory(QStringList items)
 {
     QSqlQuery pullItem;
-    QString joinedItems = items.join("', '");
+    QString joinedItems = items.join("' , '");
+    joinedItems.insert(0, "('");
+    joinedItems.append("')");
 
-    pullItem.prepare("SELECT item_name AS 'Item', sales_price AS 'Price', quantity AS 'Quantity' FROM inventory WHERE item_name IN (:items)");
-    pullItem.bindValue(":items", joinedItems);
-    pullItem.exec();
+    QStandardItemModel *model = new QStandardItemModel(0, 3);
+    model->setHeaderData(0,Qt::Horizontal, "Item");
+    model->setHeaderData(1,Qt::Horizontal, "Price");
+    model->setHeaderData(2,Qt::Horizontal, "Quantity");
 
-    qDebug() << joinedItems;
+    pullItem.exec("SELECT item_name, sales_price, quantity FROM inventory WHERE item_name in "+joinedItems+";");
 
-    return pullItem;
+    QString item = "";
+    QString price = 0;
+
+    while (pullItem.next())
+    {
+        QList<QStandardItem*> newRow;
+        item = pullItem.value(0).toString();
+
+        QStandardItem *newColumn = new QStandardItem(item);
+        newRow.append(newColumn);
+
+        price = pullItem.value(1).toString();
+        newColumn = new QStandardItem(price);
+        newRow.append(newColumn);
+
+        newColumn = new QStandardItem("1");
+        newRow.append(newColumn);
+
+        model->appendRow(newRow);
+    }
+
+    return model;
 }

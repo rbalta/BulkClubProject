@@ -3,7 +3,6 @@
 #include "loginwindow.h"
 #include "dbmanager.h"
 
-DbManager dbase("C:/Users/13109/Desktop/database/bulkclubdb.db");
 const double SALES_TAX = .0775;
 const double EXEC_CASHBACK = 0.02;
 QStringList selectedItems;
@@ -12,10 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
     ui->setupUi(this);
 
     // format for inventory display
-    ui->tableView->setModel(dbase.pullInventoryItems());
+    ui->tableView->setModel(db.pullInventoryItems());
     ui->tableView->hideColumn(2);
     ui->tableView->hideColumn(3);
     ui->tableView->setColumnWidth(0, 350);
@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // used as a blank table model
     ui->tableView_3->hide();
+
 }
 
 MainWindow::~MainWindow()
@@ -59,14 +60,15 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_pushButton_3_clicked() // check member number and show info if exists
 {
+    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
     int memberId = ui->lineEdit->text().toInt();
-    bool isValid = dbase.memberExists(memberId);
+    bool isValid = db.memberExists(memberId);
 
     if (isValid)
     {
         QSqlQueryModel *model = new QSqlQueryModel;
 
-        model->setQuery(dbase.pullMemberInfo(memberId));
+        model->setQuery(db.pullMemberInfo(memberId));
 
         ui->memDisplay->showRow(0);
         ui->memDisplay->setModel(model);
@@ -100,19 +102,18 @@ void MainWindow::updateTransactionTotals()
         return;
     }
 
-    float price = 0;
-    // int quantity = 0;
-    float totalBeforeTax = 0;
-    float taxAmount = 0;
+    double price = 0;
+    int quantity = 0;
+    double totalBeforeTax = 0;
+    double taxAmount = 0;
 
     for (int i = 0; i < ui->tableView_2->model()->rowCount(); i++)
     {
-       // quantity = ui->tableView_2->model()->index(i,2).data().toInt();
-       price = ui->tableView_2->model()->index(i,1).data().toFloat();
-       totalBeforeTax += (price);
-
+       quantity = ui->tableView_2->model()->index(i,2).data().toInt();
+       price = ui->tableView_2->model()->index(i,1).data().toDouble();
+       totalBeforeTax += (price * quantity);
     }
-    taxAmount = totalBeforeTax * SALES_TAX;
+    taxAmount = QString::number((totalBeforeTax * SALES_TAX), 'f', 2).toDouble();
 
     QTableWidgetItem *ptr = new QTableWidgetItem;
     QTableWidgetItem *ptr2 = new QTableWidgetItem;
@@ -128,20 +129,11 @@ void MainWindow::updateTransactionTotals()
     ui->tableWidget->setItem(2, 0, ptr3);
 }
 
-
-//void MainWindow::on_fruitButton_clicked() // button filters for inventory NOT WORKING YET
-//{
-//    ui->tableView->show();
-//    QSortFilterProxyModel *filter = new QSortFilterProxyModel;
-//    filter->setSourceModel(ui->tableView->model());
-
-//    filter->setFilterRegularExpression("fruit");
-//    filter->setFilterKeyColumn(3);
-//}
-
 void MainWindow::on_tableView_doubleClicked() // adds items to transaction window
 {
+    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
     QAbstractItemModel *item = ui->memDisplay->model();
+
     if (item == NULL) // checks if a member ID has been added first
     {
         QMessageBox::warning(this, "Transaction",
@@ -157,17 +149,16 @@ void MainWindow::on_tableView_doubleClicked() // adds items to transaction windo
     QString q = list.at(0).data().toString();
     selectedItems.append(q);
 
-    QSqlQueryModel *model = new QSqlQueryModel;
-    model->setQuery(dbase.pullSelectedInventory(selectedItems));
-
-    ui->tableView_2->setModel(model);
-    ui->tableView_2->setColumnWidth(0, 275);
+    ui->tableView_2->setModel(db.pullSelectedInventory(selectedItems));
+    ui->tableView_2->show();
+    ui->tableView_2->setColumnWidth(0, 250);
 
     updateTransactionTotals(); // runs the update function for cash totals
 }
 
 void MainWindow::on_pushButton_4_clicked() // checkout button
 {
+    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
     int memNum = ui->lineEdit->text().toInt();
     double price = ui->tableWidget->item(0, 0)->text().toDouble();
     double totalBeforeTax = ui->tableWidget->item(0, 0)->text().toDouble();
@@ -182,10 +173,10 @@ void MainWindow::on_pushButton_4_clicked() // checkout button
         quantities.append(model->index(i, 2).data().toInt());
     }
 
-    dbase.addToMemberTotal(memNum, price);
+    db.addToMemberTotal(memNum, price);
     if (ui->memDisplay->model()->index(0, 2).data().toString() == "Executive")
-        dbase.addToExecCashback(memNum, totalBeforeTax, EXEC_CASHBACK);
-    dbase.addTransaction(currentDate.toString(), memNum, items, quantities);
+        db.addToExecCashback(memNum, totalBeforeTax, EXEC_CASHBACK);
+    db.addTransaction(currentDate.toString("MM/dd/yyyy"), memNum, items, quantities);
 
     QMessageBox::information(this, "Transaction",
                              tr("Checkout complete!"));

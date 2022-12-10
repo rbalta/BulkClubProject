@@ -3,8 +3,6 @@
 #include "loginwindow.h"
 #include "dbmanager.h"
 
-DbManager datab("C:/Users/13109/Desktop/database/bulkclubdb.db");
-
 ManagerWindow::ManagerWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ManagerWindow)
@@ -33,6 +31,7 @@ void ManagerWindow::on_logout_clicked()
 void ManagerWindow::on_pushButton_clicked() { 
     //read from text editor
     QString purchase_date = ui->lineEdit->text();
+    DbManager datab("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
 
     //create model
     QSqlQueryModel * model=new QSqlQueryModel();
@@ -54,6 +53,7 @@ void ManagerWindow::on_pushButton_clicked() {
 void ManagerWindow::on_pushButton_8_clicked() {
     //read from text editor
     QString membership_number = ui->lineEdit_2->text();
+    DbManager datab("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
 
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery(datab.qryMemberReport(membership_number));
@@ -71,6 +71,7 @@ void ManagerWindow::on_pushButton_8_clicked() {
 void ManagerWindow::on_pushButton_2_clicked() {
     //read from text editor
     QString item_name = ui->lineEdit_3->text();
+    DbManager datab("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
 
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery(datab.qryItemReport(item_name));
@@ -85,6 +86,7 @@ void ManagerWindow::on_pushButton_2_clicked() {
 void ManagerWindow::on_pushButton_3_clicked() {
     //read from text editor
     QString membership_expiration = ui->lineEdit_4->text();
+    DbManager datab("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
 
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery(datab.qryRebate());
@@ -98,6 +100,7 @@ void ManagerWindow::on_pushButton_3_clicked() {
 void ManagerWindow::on_pushButton_7_clicked() {
     //read from text editor
     QString membership_expiration = ui->lineEdit_4->text();
+    DbManager datab("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
 
     QSqlQueryModel * model=new QSqlQueryModel();
     model->setQuery(datab.qryMemberExp(membership_expiration));
