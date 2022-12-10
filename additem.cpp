@@ -16,7 +16,7 @@ addItem::~addItem()
 
 void addItem::on_pushButton_clicked()
 {
-    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
+    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
     QString member_name, membership_number, membership_type, membership_expiration;
     member_name= ui->nameEdit->text();
     membership_number = ui->memberNumberEdit->text();
