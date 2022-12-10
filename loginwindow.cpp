@@ -11,6 +11,8 @@ LoginWindow::LoginWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setFixedSize(650,350);
+    ui->lineEdit->setAlignment(Qt::AlignHCenter);
+    ui->lineEdit_2->setAlignment(Qt::AlignHCenter);
     ui->lineEdit->setPlaceholderText("User ID");
     ui->lineEdit_2->setPlaceholderText("Password");
     ui->lineEdit_2->setEchoMode(QLineEdit::Password);
@@ -71,12 +73,6 @@ void LoginWindow::on_pushButton_2_clicked() // forgot password button
 {
     QMessageBox::information(this, tr("Help"),
             tr("Please contact an administrator to reset your password."));
-}
-
-void LoginWindow::keyPressEvent(QKeyEvent* login) // use Enter key to also login
-{
-    if(login->key() == Qt::Key_Return)
-        on_pushButton_clicked();
 }
 
 void LoginWindow::closeEvent(QCloseEvent *event) // confirms exit from login screen

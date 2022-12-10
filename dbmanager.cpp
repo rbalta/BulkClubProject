@@ -378,7 +378,8 @@ QSqlQuery DbManager::pullMemberInfo(int memNum)
 {
     QSqlQuery memInfo;
 
-    memInfo.prepare("SELECT * FROM members WHERE membership_number = :memNum");
+    memInfo.prepare("SELECT member_name, membership_number, membership_type "
+                    "FROM members WHERE membership_number = :memNum");
     memInfo.bindValue(":memNum", memNum);
     memInfo.exec();
 

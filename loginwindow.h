@@ -20,10 +20,7 @@ public:
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
-    void keyPressEvent(QKeyEvent* login);
     void closeEvent(QCloseEvent *event);
-
-    void on_pushButton_2_clicked(bool checked);
 
 private:
     Ui::LoginWindow *ui;
