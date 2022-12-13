@@ -16,7 +16,7 @@ editItem::~editItem()
 
 void editItem::on_pushButton_clicked()
 {
-    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
+    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
     QString item_name, sales_price;
     item_name= ui->updateNameEdit->text();
     sales_price = ui->UpdatePriceEdit->text();

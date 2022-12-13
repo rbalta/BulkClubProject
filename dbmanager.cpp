@@ -290,7 +290,7 @@ QSqlQuery DbManager::qryRebate() {
 // A store manager should be able to enter a month and obtain a
 // display of all members whose memberships expire that month as
 // well as the cost to renew their memberships.
-QSqlQuery DbManager::qryMemberExp(QString membership_expiration) {
+QSqlQuery DbManager::qryMemberExp(QString exp_month) {
     //set query
     QSqlQuery qry;
     qry.prepare("select membership_expiration, member_name, membership_type, "
@@ -298,9 +298,9 @@ QSqlQuery DbManager::qryMemberExp(QString membership_expiration) {
                 "ELSE '120' "
                 "END AS 'Cost of Renewal' "
                 "from members "
-                "where membership_expiration=(:membership_expiration)");
+                "where exp_month=(:exp_month)");
 
-    qry.bindValue(":membership_expiration",membership_expiration);
+    qry.bindValue(":exp_month",exp_month);
     qry.exec();
 
     return qry;

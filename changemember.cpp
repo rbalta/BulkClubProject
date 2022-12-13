@@ -16,7 +16,7 @@ changemember::~changemember()
 
 void changemember::on_pushButton_clicked()
 {
-    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
+    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
     QString membership_number, membership_type;
     membership_number= ui->lineEdit->text();
     membership_type = ui->lineEdit_2->text();

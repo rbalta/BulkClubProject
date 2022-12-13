@@ -25,7 +25,7 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_pushButton_clicked() // Login button
 {
-    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
+    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
     QString username = ui->lineEdit->text();
     QString password = ui->lineEdit_2->text();
 

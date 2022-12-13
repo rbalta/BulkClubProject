@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
+    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
     ui->setupUi(this);
 
     // format for inventory display
@@ -60,7 +60,7 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_pushButton_3_clicked() // check member number and show info if exists
 {
-    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
+    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
     int memberId = ui->lineEdit->text().toInt();
     bool isValid = db.memberExists(memberId);
 
@@ -128,7 +128,7 @@ void MainWindow::updateTransactionTotals()
 
 void MainWindow::on_tableView_doubleClicked() // adds items to transaction window
 {
-    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
+    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
     QAbstractItemModel *item = ui->memDisplay->model();
 
     if (item == NULL) // checks if a member ID has been added first
@@ -155,7 +155,7 @@ void MainWindow::on_tableView_doubleClicked() // adds items to transaction windo
 
 void MainWindow::on_pushButton_4_clicked() // checkout button
 {
-    DbManager db("C:\\Users\\Kelsey\\BulkClubProject\\bulkclubdb.db");
+    DbManager db("C:/Users/13109/Desktop/database/bulkclubdb.db");
 
     updateTransactionTotals();
 
